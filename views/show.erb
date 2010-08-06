@@ -1,0 +1,28 @@
+<h1><%= @title %></h1>
+<p>
+	<b>Clicks:</b><br />
+	<%= @bar.clicks.size %>
+</p>
+<p>
+	<b>Name:</b><br />
+	<%= @bar.name %>
+</p>
+<p>
+	<b>Address:</b><br />
+	<%= @bar.address %><br />
+	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %>
+</p>
+<p>
+	<b>Phone:</b><br /><%= @bar.phone %>
+</p>
+<p>
+	<b>Website:</b><br /><a href="<%= @bar.url %>"><%= @bar.name %></a>
+</p>
+<p>
+	<b>Joined the Ranks:</b><br /><%= @bar.created_at.strftime("%B %d, %Y") %>
+</p>
+<p>
+	<b>Last Updated:</b><br /><%= @bar.updated_at.strftime("%B %d, %Y") %>
+</p>
+
+<a href="/details/<%= @bar.id %>">More Details</a>

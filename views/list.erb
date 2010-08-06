@@ -1,0 +1,14 @@
+<h1><%= @title %></h1>
+
+<% @bars.each_with_index do |bar,i| %>
+<p>
+	<a href="/click/<%= bar.id %>"><%=bar.name %></a><br />
+	<b>Address:</b><br />
+	<%= bar.address %><br />
+	<%= bar.city %>, <%= bar.state %> <%= bar.zip %><br />
+	<a href="/delete/<%= bar.id %>">Delete</a><br />
+	<a href="/edit/<%= bar.id %>">Edit</a><br />
+</p>
+<% end %>
+</p>
+

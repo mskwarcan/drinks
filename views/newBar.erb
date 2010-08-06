@@ -1,0 +1,40 @@
+<h1><%= @title %></h1>
+
+<form action="/create" method="post" id="bar">
+	<p>
+	<label for="name">Bar Name:</label><br />
+	<input type="text" name="bar[name]" id="name" />
+	</p>
+	<p>
+	<label for="address">Address:</label><br />
+	<input type="text" name="bar[address]" id="address" />
+	</p>
+	<p>
+	<label for="city">City:</label><br />
+	<input type="text" name="bar[city]" id="city" />
+	</p>
+	<p>
+	<label for="state">State:</label><br />
+	<input type="text" name="bar[state]" id="state" />
+	</p>
+	<p>
+	<label for="zip">Zip:</label><br />
+	<input type="text" name="bar[zip]" id="zip" />
+	</p>
+	<p>
+	<label for="phone">Phone:</label><br />
+	<input type="text" name="bar[phone]" id="phone" />
+	</p>
+	<p>
+	<label for="url">Email:</label><br />
+	<input type="text" name="bar[email]" id="email" /><br />
+	This will be your username and will receive your password.
+	</p>
+	<p>
+	<label for="url">Website: (optional)</label><br />
+	<input type="text" name="bar[url]" id="url">
+	</p>
+	<p>
+	<input type="submit" value="Submit" />
+	</p>
+</form>

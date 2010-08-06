@@ -1,0 +1,41 @@
+<h1><%= @title %></h1>
+
+<form action="/update/<%= @bar.id %>" method="post" id="bar">
+		<input type="hidden" name="_method" value="put" />
+	<p>
+	<label for="name">Bar Name:</label><br />
+	<input type="text" name="bar[name]" id="name" value="<%= @bar.name %>" />
+	</p>
+	<p>
+	<label for="address">Address:</label><br />
+	<input type="text" name="bar[address]" id="address" value="<%= @bar.address %>" />
+	</p>
+	<p>
+	<label for="city">City:</label><br />
+	<input type="text" name="bar[city]" id="city" value="<%= @bar.city %>" />
+	</p>
+	<p>
+	<label for="state">State:</label><br />
+	<input type="text" name="bar[state]" id="state" value="<%= @bar.state %>" />
+	</p>
+	<p>
+	<label for="zip">Zip:</label><br />
+	<input type="text" name="bar[zip]" id="zip" value="<%= @bar.zip %>" />
+	</p>
+	<p>
+	<label for="phone">Phone:</label><br />
+	<input type="text" name="bar[phone]" id="phone" value="<%= @bar.phone %>" />
+	</p>
+	<p>
+	<label for="url">Email:</label><br />
+	<input type="text" name="bar[email]" id="email" value="<%= @bar.email %>" /><br />
+	This will be your username and will receive your password.
+	</p>
+	<p>
+	<label for="url">Website: (optional)</label><br />
+	<input type="text" name="bar[url]" id="url" value="<%= @bar.url %>" />
+	</p>
+	<p>
+	<input type="submit" value="Submit" />
+	</p>
+</form>
