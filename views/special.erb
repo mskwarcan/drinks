@@ -1,0 +1,34 @@
+<h2><%= @bar.name %> Drink Specials</h2>
+
+<form action="/addSpecial/<%= @bar.id %>" method="post" id="bar">
+	<table>
+		<tr>
+			<th>Day of Week</th><th>Type</th><th>Drink Name</th><th>Price</th>
+		</tr>
+		<tr>
+			<td><select name="special[][day_of_week]">
+				<% for weekday in Weekday.all() do %>
+					<option value="<%= weekday.day %>"><%= weekday.day %></option>
+				<% end %>
+				</select>
+			</td>
+			<td><select name="special[][type]">
+				<option value="Beer">Beer</option>
+				<option value="Mixed">Mixed Drink</option>
+				<option value="Shot">Shot</option>
+				<option value="Wine">Wine</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" name="special[][drink_name]" />
+				<input type="hidden" name="special[][bar_id]" value="<%= @bar.id %>">
+			</td>
+			<td>
+			<input type="text" name="special[][price]" />
+			</td>
+		</tr>
+	</table>
+	<p>
+	<input type="submit" class="submit" value="Submit" />
+	</p>
+</form>

@@ -1,0 +1,29 @@
+<h2>Edit Your Account</h>
+
+<form action="/editAccount/<%= @user.id %>" method="post" id="person">
+	<p>
+	<label for="email">Email:</label><br />
+	<input type="text" name="person[email]" id="email" value="<%= @user.email %>" /><br />
+	<span class="formInfo">This will be your username and not shared with others.</span>
+	</p>
+	<p>
+	<label for="password">Password:</label><br />
+	<input type="password" name="person[password]" id="password" />
+	</p>
+	<p>
+	<label for="pwdCheck">Password Confirmation:</label><br />
+	<input type="password" name="pwdCheck" id="pwdCheck" />
+	</p>
+	<p>
+	<label for="name">Name:</label><br />
+	<input type="text" name="person[name]" value="<%= @user.name %>" id="name" />
+	</p>
+	<p>
+	<p>
+	<label for="phone">Phone: (Optional)</label><br />
+	<input type="text" name="person[phone]" value="<%= @user.phone %>" id="phone" />
+	</p>
+	<p>
+	<input type="submit" class="submit" value="Update" />
+	</p>
+</form>

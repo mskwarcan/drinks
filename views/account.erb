@@ -1,0 +1,18 @@
+<h2>Your Account</h2>
+<p>
+<b>Your Email:</b><br />
+<%= @user.email %>
+</p>
+<p>
+<b>Your Name:</b><br />
+<%= @user.name %>
+</p>
+<% if @user.phone.nil? %>
+<p>
+<b>Your Phone:</b><br />
+<%= @user.phone %>
+</p>
+<% end %>
+<p>
+<a href="/editAccount/<%= session[:user] %>">Edit Account/Change password</a>
+</p>

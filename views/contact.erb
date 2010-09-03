@@ -1,0 +1,27 @@
+<% if !@contact_form.errors.empty? %>
+	  <% tmp = [] %>
+      <% @contact_form.errors.each do |field, error| %>
+    	<% tmp << "#{field.to_s.gsub('_', ' ').capitalize} #{error} <br/>"
+		   session[:error] = tmp %>
+	  <% end %>
+<% end %>
+
+<h2>Contact Us</h2>
+<form action="/contact" method="post" id="contact">
+	<p>
+	<label for="email">Your Email:</label><br />
+	<input type="text" name="contact[email]" id="email" /><br />
+	<span class="formInfo">We'll use this to reply to you.</span>
+	</p>
+	<p>
+	<label for="subject">Subject:</label><br />
+	<input type="text" name="contact[subject]" id="subject" />
+	</p>
+	<p>
+	<p>
+	<label for="message">Message:</label><br />
+		<textarea name="contact[message]" id="message"></textarea>
+	</p>
+	<input type="submit" class="submit" value="Send" />
+	</p>
+</form>
