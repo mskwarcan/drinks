@@ -7,6 +7,6 @@ gem "dm-sqlite-adapter"
 gem "data_mapper"
 gem "pony"
 gem "geokit"
-gem "dm-geokit", :git => "git@github.com:mskwarcan/dm-geokit.git"
+gem "dm-geokit", :git => "git://github.com/mskwarcan/dm-geokit.git"
 
 
