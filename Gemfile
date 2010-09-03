@@ -7,6 +7,6 @@ gem "dm-sqlite-adapter"
 gem "data_mapper"
 gem "pony"
 gem "geokit"
-gem "dm-geokit", :path => "~/src/dm-geokit/"
+gem "dm-geokit", :path => "lib/dm-geokit/"
 
 
