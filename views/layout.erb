@@ -4,7 +4,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><%= @title %></title>
-	<link href="/styles.css" rel="stylesheet" type="text/css" />
+	<link href="../css/styles.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/jquery.infieldlabel.min.js"></script>
+	<script type="text/javascript" src="../js/scripts.js"></script>
 </head>
 
 <% if authorized? %>
@@ -12,8 +15,48 @@
 <% end %>
 
 <body>
+<div id="wrapper">
+	<div id="header">
+		<div class="header_right"><ul><li><a href="/">Home</a></li><li><a href="/about">About Drinkr</a></li><li><a href="/faq">FAQs</a></li><li class="last"><a href="/contact">Contact</a></li></ul></div>
+		<a href="/"><h1 class="header">Drinkr - Share your bar with the world.</h1></a>
+	</div>
+	
+	<%= show_flash %>
+	
+	<div id="sidebar">
+		<%= erb(:search, :layout => false) %>
+		
+		<% if logged_in? %>
+			<h2>Welcome</h2>
+			<p>
+			<a href="/account/<%= session[:user] %>">My Account</a><br />
+			<a href="/bar">My Bars</a><br />
+			<a href="/new">Create a Bar</a><br />
+			<a href="/logout">Log out</a>
+			</p>
+		<% else %>
+			<%= erb(:login, :layout => false) %>
+		<% end %>
+	</div>
 
-<%= yield %>
-
+	<div id="main">
+		<% if @img.nil?%>
+			<div id="innerMain">
+		<% end %>
+		<%= yield %>
+		</div>
+	<% if @img.nil?%>
+		<img class="main" src="../images/beer_btm.jpg">
+	</div>
+	<% end %>
+	
+	<div id="footer">
+		<% if @img.nil?%>
+			<img class="footer" src="../images/beer_top.jpg">
+		<% end %>
+		<div id="footerBar">
+		<p>Drinkr&copy; 2010</p>
+	</div>
+</div>
 </body>
 </html>

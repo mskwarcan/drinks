@@ -2,4 +2,405 @@ body
 {
 	margin:0;
 	padding:0;
+	font-family: Tahoma, Arial;
+	height: 100%;
 }
+
+html
+{
+	height:100%;
+}
+
+h2
+{
+	color:#646363;
+	font-size:36px;
+	font-weight:normal;
+	margin:0;
+	padding:0;
+	line-height:1;
+}
+
+h3
+{
+	color:#646363;
+	font-size:24px;
+	font-weight:normal;
+	margin:0;
+	padding:0;
+	line-height:1;
+}
+h3 a
+{
+	text-decoration:none;
+	color:#646363;
+}
+
+h3 a:hover
+{
+	color:#a6a6a6;
+}
+
+a
+{
+	color:#198bd3;
+}
+
+p
+{
+	color:#878787;
+	font-size:14px;
+}
+
+/* STRUCTURE */
+#wrapper
+{
+	width:900px;
+	margin:0 auto;
+}
+
+#header
+{
+	margin-bottom:24px;
+	height:46px;
+}
+
+#sidebar
+{
+	width:310px;
+	float:right;
+}
+
+#main
+{
+	width:530px;
+	margin-right:60px;
+}
+
+#innerMain
+{
+	position:relative;
+	z-index:1;
+	width:345px;
+	float:right;
+	
+}
+
+#footer
+{
+	margin-top:20px;
+	clear:both;
+}
+
+#footerBar
+{
+	height:46px;
+	background:#000;
+}
+/* END STRUCTURE */
+
+/* HEADER STYLES */
+
+.header_right
+{
+	background:#000;
+	height:46px;
+	width:310px;
+	float:right;
+}
+
+.header_right ul
+{
+	margin:0;
+	padding:0;
+	width:325px;
+	position:relative;
+	left:-1px;
+	top:27px;
+}
+
+.header_right ul li
+{
+	list-style-type:none;
+	float:left;
+	color:#fff;
+	font-size:18px;
+	margin-right:22px;
+}
+
+.header_right ul li.last
+{
+	margin-right:0px;
+	position:relative;
+	left:-2px;
+}
+
+.header_right ul li a
+{
+	color:#fff;
+	text-decoration:none;
+}
+
+.header_right ul li a:hover
+{
+	color:#a5a5a5;
+}
+
+h1.header
+{
+	width:530px;
+	height:46px;
+	margin:0;
+	text-indent:-9999px;
+	padding:0;
+	background:url('../images/header.jpg');
+}
+
+/* END HEADER STYLES */
+
+/* MAIN STYLES */
+
+img.main
+{
+	position:relative;
+	margin-right:-25px;
+}
+
+/* END MAIN STYLES */
+
+/* FORM STYLES */
+label
+{
+	color:#a6a6a6;
+	font-size:24px;
+}
+
+form.infield label
+{
+	color:#a6a6a6;
+	font-size:24px;
+	position:absolute; 
+	top:2px; 
+	left:5px;
+}
+
+input
+{
+	border:#a6a6a6 solid 2px;
+	font-size:24px;
+	color:#646363;
+	height:32px;
+	width:306px;
+}
+
+textarea
+{
+	border:#a6a6a6 solid 2px;
+	font-size:14px;
+	color:#646363;
+	height:32px;
+	height: 140px;
+	width:306px;
+}
+
+.formInfo
+{
+	color:#646363;
+	font-size:12px;
+}
+
+input.state
+{
+	width:120px;
+}
+
+p.zip
+{
+	left:140px;
+	top:-52px;
+	margin-bottom:-55px;
+}
+
+form#bar p.zip
+{
+	left:140px;
+	top:-82px;
+	margin-bottom:-85px;
+}
+
+input.zip
+{
+	width:166px;
+}
+
+label.url
+{
+	color:#646363;
+}
+
+input.url
+{
+	width:237px;
+}
+
+input.submit
+{
+	color:#fff;
+	background:#363636;
+	font-size:24px;
+	height:34px;
+	width:180px;
+}
+
+.checkbox
+{
+	position:relative;
+	top:-8px;
+	left: 4px;
+}
+
+form p 
+{ 
+	position:relative;
+}
+
+/* END FORM STYLES */
+
+/* FLASH MESSAGES */
+.flash
+{
+	padding:4px;
+	margin:0 0 10px 0;
+}
+.flash img
+{
+	float:left;
+	height:100%;
+	margin-right:3px;
+}
+.flash p
+{
+	color:#000;
+	margin:0;
+}
+
+.error
+{
+	background:#ffaeae;
+	border:1px solid #ff7171;
+}
+
+.success
+{
+	background:#cbfcb0;
+	border:1px solid #72bc4a;
+}
+
+/* END FLASH STYLES */
+
+/* BAR PAGE STYLES */
+.bar p
+{
+	margin:0;
+}
+
+p.links
+{
+	margin:0;
+}
+
+.links
+{
+	float:right;
+}
+
+.bar .links a
+{
+	text-align:right;
+}
+
+/* END BAR PAGE STYLES */
+
+/* DETAILS PAGE */
+
+table#details
+{
+	width:530px;
+	color:#a6a6a6;
+}
+
+table#details
+{
+	margin:7px 0;
+}
+
+table#details th
+{
+	color:#646363;
+	font-size:14px;
+}
+
+table#details input
+{
+	width:70px;
+	font-size:20px;
+}
+
+form.details p
+{
+	margin:0;
+}
+
+form.details h3
+{
+	margin-top:10px;
+}
+
+p.event
+{
+	margin:10px 0 !important;
+}
+
+p.event input
+{
+	width:auto;
+}
+
+
+/* END DETAILS PAGE */
+
+/* FAQs PAGE STYLES */
+
+ul.faq
+{
+	padding-left:15px;
+	list-style-type:square;
+}
+
+ul.faq li
+{
+	margin: 3px 0;
+}
+
+/* END FAQs PAGE STYLES */
+
+/* FOOTER STYLE */
+
+#footer img.footer
+{
+	margin-top:-240px;
+	position:relative;
+	top:4px;
+}
+
+#footer p
+{
+	margin:0;
+	color:#fff;
+	text-align:right;
+	position:relative;
+	top:10px;
+	left:-5px;
+}
+
+/* END FOOTER STYLES */

@@ -1,23 +1,62 @@
-<h1><%= @title %></h1>
+<p class="links">
+<span class="links">
+<% if logged_in? %>
+	<% if Bar.authenticate(@bar.id, session[:user]) %>
+		<a href="/edit/<%= @bar.id %>">Edit Bar</a><br />
+		<a href="/delete/<%= @bar.id %>">Delete Bar</a><br />
+	<% end %>
+<% end %>
+</span>
+</p>
+<h3><%= @bar.name %></h3>
+<p>
+<%= @bar.description %>
+</p>
+<p>
+	<%= @bar.address %><br />
+	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %><br />
+	<%= @bar.phone %><br />
+	<% if @bar.url.nil? %>
+		<a href="http://<%= @bar.url %>"><%= @bar.name %></a>
+	<% end %>	
+</p>
+<p>
+	Hours of Operation:<br />
+	<% if @days.nil? %>
+		This bar has yet to make their hours available.<br />
+		<% if Bar.authenticate(@bar.id, session[:user]) %>
+			<a href="/details/<%= @bar.id %>">Add Hours</a>
+		<% end %>
+	<% else %>
+		<% @days.each_with_index do |day,i| %>
+			<%=day.day_of_week %> <%=day.open %> - <%=day.close %> <b>Cover: <%=day.cover %></b><br />
+		<% end %>
+		<% if Bar.authenticate(@bar.id, session[:user]) %>
+			<a href="/details/<%= @bar.id %>">Edit Hours</a>
+		<% end %>
+	<% end %>
+</p>
+<p>
+	Daily Drink Specials:<br />
+	<% if @specials.nil? %>
+		This bar has yet to make their drink specials available.<br />
+		<% if Bar.authenticate(@bar.id, session[:user]) %>
+			<a href="/special/<%= @bar.id %>">Add a Special</a>
+		<% end %>
+	<% else %>
+		<% @specials.each_with_index do |special,i| %>
+			<%=special.day_of_week %> <%=special.drink_name %> $<%=special.price %> <br />
+		<% end %>
+		<% if Bar.authenticate(@bar.id, session[:user]) %>
+			<a href="/special/<%= @bar.id %>">Edit/Add a Special</a>
+		<% end %>
+	<% end %>
+</p>
 <p>
 	<b>Clicks:</b><br />
 	<%= @bar.clicks.size %>
 </p>
-<p>
-	<b>Name:</b><br />
-	<%= @bar.name %>
-</p>
-<p>
-	<b>Address:</b><br />
-	<%= @bar.address %><br />
-	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %>
-</p>
-<p>
-	<b>Phone:</b><br /><%= @bar.phone %>
-</p>
-<p>
-	<b>Website:</b><br /><a href="<%= @bar.url %>"><%= @bar.name %></a>
-</p>
+
 <p>
 	<b>Joined the Ranks:</b><br /><%= @bar.created_at.strftime("%B %d, %Y") %>
 </p>
@@ -25,4 +64,3 @@
 	<b>Last Updated:</b><br /><%= @bar.updated_at.strftime("%B %d, %Y") %>
 </p>
 
-<a href="/details/<%= @bar.id %>">More Details</a>

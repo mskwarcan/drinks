@@ -1,163 +1,57 @@
-<h1><%= @title %></h1>
+<h2><%= @bar.name %> Details</h2>
 
-<form action="/create" method="post" id="bar">
-	<p>
-	<label for="name">Hours:</label><br />
-	<table>
+<form action="/addDetails/<%= @bar.id %>" class="infield details" method="post" id="bar">
+	
+	<h3>Hours</h3>
+	<p>Remember to include A.M./P.M.</p>
+	<table id="details">
 		<tr>
-			<th>Day of Week</th><th>Opens At</th><th>Closes At</th><th>Closed</th>
+			<th>Day of Week</th><th>Opens At</th><th>Closes At</th><th>Closed</th><th>Cover?</th><th></th>
 		</tr>
+		<% for weekday in Weekday.all() do %>
 		<tr>
-			<td>Monday</td><td><input type="text" name="mondayOpens" />
-			<select name="mondayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
+			<% for day in Day.all(:bar_id => @bar.id) do %>
+				<% if day.day_of_week == weekday.day %>
+					<td><%= weekday.day %></td><td><input type="text" name="days[][open]" value="<%= day.open %>" />
+				<% end %>
+			<% end %>
+			<input type="hidden" name="days[][day_of_week]" value="<%= weekday.day %>">	
+			<input type="hidden" name="days[][bar_id]" value="<%= @bar.id %>">
 			</td>
 			<td>
-			<input type="text" name="mondayCloses" />
-			<select name="mondayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
+			<% for day in Day.all(:bar_id => @bar.id) do %>
+				<% if day.day_of_week == weekday.day %>
+					<input type="text" name="days[][close]" value="<%= day.close %>" />
+				<% end %>
+			<% end %>
 			</td>
 			<td>
-				<input name="mondayClosed" type="checkbox" value="Closed" />
-			</td>
-		</tr>
-		<tr>
-			<td>Tuesday</td><td><input type="text" name="tuesdayOpens" />
-			<select name="tuesdayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
+				<input name="days[][closed]" type="checkbox" value="Closed" />
 			</td>
 			<td>
-			<input type="text" name="tuesdayCloses" />
-			<select name="tuesdayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
+				<input type="checkbox" name="coverCheck" /></td>
 			<td>
-				<input name="tuesdayClosed" type="checkbox" value="Closed" />
+			<% for day in Day.all(:bar_id => @bar.id) do %>
+				<% if day.day_of_week == weekday.day %>
+				<p>
+				<label for="cover<%= weekday.day %>">Price</label>
+				<input type="text" id="cover<%= weekday.day %>" name="days[][cover]" value="<%= day.cover %>" />
+				</p>
+				<% end %>
+			<% end %>
 			</td>
 		</tr>
-		<tr>
-			<td>Wendesday</td><td><input type="text" name="wendesdayOpens" />
-			<select name="wendesdayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-			<input type="text" name="wendesdayCloses" />
-			<select name="wendesdayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-				<input name="wendesdayClosed" type="checkbox" value="Closed" />
-			</td>
-		</tr>
-		<tr>
-			<td>Thursday</td><td><input type="text" name="thursdayOpens" />
-			<select name="thursdayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-			<input type="text" name="thursdayCloses" />
-			<select name="thursdayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-				<input name="thursdayClosed"  type="checkbox" value="Closed" />
-			</td>
-		</tr>
-		<tr>
-			<td>Friday</td><td><input type="text" name="fridayOpens" />
-			<select name="fridayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-			<input type="text" name="fridayCloses" />
-			<select name="fridayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-				<input name="fridayClosed" type="checkbox" value="Closed" />
-			</td>
-		</tr>
-		<tr>
-			<td>Saturday</td><td><input type="text" name="saturdayOpens" />
-			<select name="saturdayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-			<input type="text" name="saturdayCloses" />
-			<select name="saturdayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-				<input name="saturdayCloses" type="checkbox" value="Closed" />
-			</td>
-		</tr>
-		<tr>
-			<td>Sunday</td><td><input type="text" name="sundayOpens" />
-			<select name="sundayOpenTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-			<input type="text" name="sundayCloses" />
-			<select name="sundayCloseTime">
-				<option value="A.M." selected="selected">A.M.</option>
-				<option value="P.M.">P.M.</option>
-			</select>
-			</td>
-			<td>
-				<input name="sundayCloses" type="checkbox" value="Closed" />
-			</td>
-		</tr>
+		<% end %>
 	</table>
 	</p>
-	<p>
-	<label>Do you have a dance floor?</label><br />
-	<input type="radio" name="dance" value="Yes"> Yes<br>
-	<input type="radio" name="dance" value="No" checked> No<br>
-	</p>
-	<p>
-	<label>Do you charge cover?</label><br />
-	<input type="checkbox" name="Monday">Monday<br />
-	<input type="checkbox" name="Tuesday">Tuesday<br />
-	<input type="checkbox" name="Wednesday">Wednesday<br />
-	<input type="checkbox" name="Thursday">Thursday<br />
-	<input type="checkbox" name="Friday">Friday<br />
-	<input type="checkbox" name="Saturday">Saturday<br />
-	<input type="checkbox" name="Sunday">Sunday<br />
-
-	</p>
-	<p>
-	<label>Do you have special events?</label><br />
+	<h3>Do you have special events?</h3>
+	<p class="event">
 	<% for event in Event.all() do %>
-	      <br>	<input type="checkbox" name="<%= event.title %>"><Monday><%= event.title %><br />
+	      <input type="checkbox" name="event[][title]" value="<%= event.title %>" /><span class="checkbox"><%= event.title %></span><br />
+		  <input type="hidden" name="event[][bar_id]" value="<%= @bar.id %>">
 	    <% end %>
 	</p>
 	<p>
-	<input type="submit" value="Submit" />
+	<input type="submit" class="submit" value="Add Details" />
 	</p>
 </form>

@@ -11,4 +11,10 @@
 </p>
 <% end %>
 </p>
-
+Today is <%= Time.new.strftime("%A") %>:
+The drink specials for today are:<br />
+<% @specials.each_with_index do |special,i| %>
+    <% if special.day_of_week == Time.new.strftime("%A") %>
+		<%=special.drink_name %> $<%=special.price %> <br />
+	<% end %>
+<% end %>

@@ -1,126 +1,207 @@
 require 'rubygems'
+require 'bundler'
+Bundler.setup
+
 require 'sinatra'
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-migrations'
+require 'config/database'
+require 'helpers/sinatra'
 require 'lib/authorization'
+require 'lib/geokit'
+require 'lib/contact'
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/bars.db")
-
-class Bar
-  
-  include DataMapper::Resource
-  
-  property :id,         Serial
-  property :name,       String
-  property :address,    String
-  property :city,       String
-  property :state,      String
-  property :zip,        String
-  property :phone,      String
-  property :email,      String
-  property :url,        String
-  property :password,   String
-  property :created_at, DateTime
-  property :updated_at, DateTime
-  
-  has n, :clicks
-  has n, :details
-
-end
-
-class Event
-  include DataMapper::Resource
-  
-  property :id,          Serial
-  property :title,       String
-  
-end
-
-class Detail
-  include DataMapper::Resource
-  
-  property :id,          Serial
-  property :day_of_week, String
-  property :hours,       String
-  property :cover,       String
-  property :dance_floor,Boolean
-  
-  has n, :specials
-  belongs_to :bar
-  
-end
-
-class Special
-  include DataMapper::Resource
-  
-  property :id,          Serial
-  property :drink_name,  String
-  property :price,       Decimal
-  property :day_of_week, String
-  
-  belongs_to :detail
-  
-end
-
-class Click
-  include DataMapper::Resource
-  
-  property :id,         Serial
-  property :ip_address, String
-  property :created_at, DateTime
-  
-  belongs_to :bar
-  
-end
-
-#Create or upgrade all tables
-DataMapper.auto_upgrade!
+enable :sessions
 
 helpers do
   include Sinatra::Authorization
 end
 
+############################Home Page
 get '/' do
-  @title = "Welcome to Drinks"
   erb :welcome
 end
+############################End Home Page
 
-get '/bar' do
-  @bars = Bar.all(:order => [:name.asc])
+############################About Page
+get '/about' do
+  erb :about
+end
+############################End About Page
+
+############################FAQs Page
+get '/faq' do
+  erb :faq
+end
+############################End FAQs Page
+
+############################Contact Page
+get '/contact' do
+  @contact_form = ContactForm.new
+  erb :contact
 end
 
+post '/contact' do
+  @contact_form = ContactForm.new(params[:contact])
+  if @contact_form.valid?
+    #@contact_form.send_email('Drinkr Contact Form')
+    @contact_form.clear
+    erb :contact
+  else
+    erb :contact
+  end
+end
+############################End Contact Page
+
+############################Login
+post '/login' do
+  
+  if Person.authenticate(params["email"], params["password"])
+      @user = Person.first(:email => params["email"])
+      session[:user] = @user.id
+      session[:flash] = "Login successful"
+      redirect '/bar'
+  else
+      session[:error] = "Login failed - Try again"
+      redirect '/'
+  end
+
+end
+
+get '/logout' do
+  session[:user] = nil
+  redirect '/'
+end
+############################End Login
+
+############################Search
+post '/search' do
+  @address = Person.new(params[:bar])
+  @latlon = Geokit::Geocoders::YahooGeocoder.geocode "#{@address.address}, #{@address.city} #{@address.state}"
+  
+  @bars = Bar.all(:address.near => {:origin => @latlon, :distance => 5.mi})
+  
+  session[:error] = @bars
+  
+end
+
+############################End Search
+
+############################Register Page
+get '/register' do
+  erb :register
+end
+
+post '/register' do
+  @user = Person.new(params[:person])
+  
+  if @user.save
+      flash("Thank you for registering. Login to create you first bar.")
+      redirect '/'
+  else
+    tmp = []
+    @user.errors.each do |e|
+      tmp << "#{e}. <br/>"
+    end
+    session[:error] = tmp
+    redirect '/register'
+  end
+end
+############################End Register Page
+
+############################Main Page
+get '/bar' do
+  if !logged_in?
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+  
+  @bars = Bar.all(:order => [:name.asc], :person_id => session[:user])
+  erb :bar
+end
+############################Main Page
+
+############################list of all bars
 get '/list' do
-  @title = ' Search Bars'
+  @specials = Special.all()
   @bars = Bar.all(:order => [:created_at.desc])
   erb :list
 end
 
+############################New bar
 get '/new' do
-  #require_admin
-  @title = "Share you bar with the world."
+  if !logged_in?
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
   erb :newBar
 end
 
-get '/event' do
-  #require_admin
-  erb :event
-end
-
-get '/details/:id' do
-  #require_admin
-  @title = "Share you bar with the world."
-  erb :details
-end
-
 post '/create' do
-  #require_admin
+  if !logged_in?
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+  
   @bar = Bar.new(params[:bar])
   if @bar.save
     redirect "/show/#{@bar.id}"
   else
+    tmp = []
+    @bar.errors.each do |e|
+      tmp << "#{e}. <br/>"
+    end
+    session[:error] = tmp
     redirect('/new')
   end
+end
+############################End New Bar
+
+############################Bar Details
+get '/details/:id' do
+  @bar = Bar.get(params[:id])
+  @img = true
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+       @days = Day.all(:bar_id => :id)
+       erb :details
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+post '/addDetails/:id' do 
+  @bar = Bar.get(params[:id])
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      params[:days].each do |day|
+        Day.new(day).save
+      end
+
+      params[:event].each do |events|
+        BarEvent.new(events).save
+      end
+      redirect "/show/#{@bar.id}"
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+############################End Bar Details
+
+############################New Event
+get '/event' do
+  #require_admin
+  erb :event
 end
 
 post '/newEvent' do
@@ -132,19 +213,122 @@ post '/newEvent' do
     redirect('/event')
   end
 end
+############################End New Event
 
-get '/delete/:id' do
-  #require_admin
-  bar = Bar.get(params[:id])
-  unless bar.nil?
-    bar.destroy
+############################Drink Specials
+get '/special/:id' do
+  @bar = Bar.get(params[:id])
+  @img = true
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      @bar = Bar.get(params[:id])
+      erb :special
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
   end
-  redirect('/list')
+end
+
+post '/addSpecial/:id' do
+  @bar = Bar.get(params[:id])
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      params[:special].each do |specials|
+        Special.new(specials).save
+      end
+      redirect '/bar'
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+############################END Drink Specials
+
+############################Account
+get '/account/:id' do
+  if logged_in?
+    @user = Person.get(params[:id])
+    erb :account
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+get '/editAccount/:id' do
+  if logged_in?
+    @user = Person.get(params[:id])
+    erb :editAccount
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+post '/editAccount/:id' do
+  @user = Person.get(params[:id])
+
+  if logged_in?
+    if (@user.id == session[:user])
+      @update = Person.new(params[:person])
+      if Person.get(params[:id]).update(@update.attributes)
+        redirect "/account/#{@user.id}"
+      else
+        tmp = []
+        @update.errors.each do |e|
+          tmp << "#{e}. <br/>"
+        end
+        session[:error] = tmp
+        redirect("/editAccount/#{@user.id}")
+      end
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+############################END Account
+
+############################Bar Actions
+get '/delete/:id' do
+  @bar = Bar.get(params[:id])
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      bar = Bar.get(params[:id])
+      unless bar.nil?
+        bar.destroy
+      end
+      redirect('/bar')
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
 end
 
 get '/show/:id' do
-  #require_admin
   @bar = Bar.get(params[:id])
+  @days = Day.all(:bar_id => @bar.id)
+  @specials = Special.all(:bar_id => @bar.id)
+  
   if @bar
     erb :show
   else
@@ -153,23 +337,44 @@ get '/show/:id' do
 end
 
 get '/edit/:id' do
-  #require_admin
   @bar = Bar.get(params[:id])
-  if @bar
-    erb :edit
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      erb :edit
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
   else
-    redirect('/list')
+    session[:error] = "You must log in to view this page."
+    redirect "/"
   end
 end
 
 put '/update/:id' do
-  @bar = Bar.new(params[:bar])
-  Bar.get(params[:id]).update(@bar.attributes)
-  redirect "/show/#{@bar2.id}"
+  @bar = Bar.get(params[:id])
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      @update = Bar.new(params[:bar])
+      Bar.get(params[:id]).update(@update.attributes)
+      redirect "/show/#{@bar.id}"
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
 end
+############################End CRUD Commands
 
+############################Clicks
 get '/click/:id' do
   bar = Bar.get(params[:id])
   bar.clicks.create(:ip_address => env["REMOTE_ADDR"])
   redirect "/show/#{bar.id}"
 end
+############################End Clicks
