@@ -11,7 +11,9 @@
 </p>
 <% end %>
 </p>
-Today is <%= Time.new.strftime("%A") %>:
+<% t = Time.now 
+   t = t - + (60 * 60 * 5)%>
+Today is <%= t.strftime("%A") %>:
 The drink specials for today are:<br />
 <% @specials.each_with_index do |special,i| %>
     <% if special.day_of_week == Time.new.strftime("%A") %>

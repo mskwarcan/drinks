@@ -9,19 +9,20 @@
 </span>
 </p>
 <h3><%= @bar.name %></h3>
-<p>
-<%= @bar.description %>
-</p>
-<p>
+<p class="noMargin">
 	<%= @bar.address %><br />
 	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %><br />
 	<%= @bar.phone %><br />
-	<% if @bar.url.nil? %>
-		<a href="http://<%= @bar.url %>"><%= @bar.name %></a>
-	<% end %>	
+	<% if @bar.url %>
+		Website: <a href="http://<%= @bar.url %>"><%= @bar.name %></a><br /><br />
+	<% else %>
+		<br />
+	<% end %>
+	
+	<%= @bar.description %>
 </p>
 <p>
-	Hours of Operation:<br />
+	<b>Hours of Operation:</b><br />
 	<% if @days.nil? %>
 		This bar has yet to make their hours available.<br />
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
@@ -29,7 +30,7 @@
 		<% end %>
 	<% else %>
 		<% @days.each_with_index do |day,i| %>
-			<%=day.day_of_week %> <%=day.open %> - <%=day.close %> <b>Cover: <%=day.cover %></b><br />
+			<%=day.day_of_week %> <%=day.open %> - <%=day.close %> <% if !day.cover.empty? %><b>Cover: <%=day.cover %></b><% end %><br />
 		<% end %>
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
 			<a href="/details/<%= @bar.id %>">Edit Hours</a>
@@ -37,14 +38,14 @@
 	<% end %>
 </p>
 <p>
-	Daily Drink Specials:<br />
+	<b>Daily Drink Specials:</b><br />
 	<% if @specials.nil? %>
 		This bar has yet to make their drink specials available.<br />
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
 			<a href="/special/<%= @bar.id %>">Add a Special</a>
 		<% end %>
 	<% else %>
-		<% @specials.each_with_index do |special,i| %>
+		<% @specials.each do |special| %>
 			<%=special.day_of_week %> <%=special.drink_name %> $<%=special.price %> <br />
 		<% end %>
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
@@ -52,15 +53,6 @@
 		<% end %>
 	<% end %>
 </p>
-<p>
-	<b>Clicks:</b><br />
-	<%= @bar.clicks.size %>
-</p>
 
-<p>
-	<b>Joined the Ranks:</b><br /><%= @bar.created_at.strftime("%B %d, %Y") %>
-</p>
-<p>
-	<b>Last Updated:</b><br /><%= @bar.updated_at.strftime("%B %d, %Y") %>
-</p>
+<p>Last Updated on <%= @bar.updated_at.strftime("%B %d, %Y") %></p>
 

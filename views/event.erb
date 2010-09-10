@@ -1,9 +1,17 @@
+<h2>Add an Event</h2>
 <form action="/newEvent" method="post" id="event">
 	<p>
 	<label for="title">Event Name:</label><br />
 	<input type="text" name="event[title]" id="title" />
 	</p>
 	<p>
-	<input type="submit" value="Submit" />
+	<input type="submit" class="submit" value="Add Event" />
 	</p>
 </form>
+
+<h3>Current Events</h3>
+<ul>
+	<% for event in Event.all() do %>
+		<li><%= event.title %> <a href="/deleteEvent/<%= event.id %>">Delete</a></li>
+	<% end %>
+</ul>

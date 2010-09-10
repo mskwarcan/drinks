@@ -5,13 +5,11 @@
 	<% @bars.each_with_index do |bar,i| %>
 		<div class="bar">
 			<h3><a href="/show/<%= bar.id %>"><%=bar.name %></a></h3>
-			<p>
-			<span class="links">
+			<p class="noMargin">
 				<a href="/edit/<%= bar.id %>">Edit Bar</a><br />
 				<a href="/details/<%= bar.id %>">Add Hours/Cover/Events</a><br />
 				<a href="/special/<%= bar.id %>">Add a Drink Special</a><br />
 				<a href="/delete/<%= bar.id %>">Delete Bar</a>
-			</span>
 			</p>
 			<p>
 			<%= bar.address %><br />

@@ -1,0 +1,7 @@
+source "http://rubygems.org"
+
+gem "sinatra"
+gem "dm-geokit", :git =>
+  "git://github.com/mskwarcan/dm-geokit.git"
+
+

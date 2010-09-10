@@ -55,6 +55,7 @@ p
 /* STRUCTURE */
 #wrapper
 {
+	height:100%;
 	width:900px;
 	margin:0 auto;
 }
@@ -304,7 +305,7 @@ form p
 	margin:0;
 }
 
-p.links
+p.noMargin
 {
 	margin:0;
 }
@@ -334,7 +335,7 @@ table#details
 	margin:7px 0;
 }
 
-table#details th
+table th
 {
 	color:#646363;
 	font-size:14px;
@@ -356,6 +357,11 @@ form.details h3
 	margin-top:10px;
 }
 
+td.price
+{
+	width:75px;
+}
+
 p.event
 {
 	margin:10px 0 !important;
@@ -368,6 +374,35 @@ p.event input
 
 
 /* END DETAILS PAGE */
+
+/* SPECIALS PAGE */
+
+table#specials
+{
+	margin-top:20px;
+}
+
+table#specials td
+{
+	padding:0 20px 0 0;
+}
+
+table#specials td.price
+{
+	padding:0;
+}
+
+table#specials input.drink
+{
+	width:190px;
+}
+
+table#specials input.price
+{
+	width:70px;
+}
+
+/* END SPECIALS PAGE */
 
 /* FAQs PAGE STYLES */
 

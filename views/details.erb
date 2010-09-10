@@ -1,44 +1,43 @@
 <h2><%= @bar.name %> Details</h2>
 
 <form action="/addDetails/<%= @bar.id %>" class="infield details" method="post" id="bar">
-	
 	<h3>Hours</h3>
 	<p>Remember to include A.M./P.M.</p>
 	<table id="details">
 		<tr>
 			<th>Day of Week</th><th>Opens At</th><th>Closes At</th><th>Closed</th><th>Cover?</th><th></th>
 		</tr>
-		<% for weekday in Weekday.all() do %>
+		<% @day.each do |weekday, i| %>
+		<% day = Day.first(:bar_id => @bar.id, :day_of_week => weekday) %>
 		<tr>
-			<% for day in Day.all(:bar_id => @bar.id) do %>
-				<% if day.day_of_week == weekday.day %>
-					<td><%= weekday.day %></td><td><input type="text" name="days[][open]" value="<%= day.open %>" />
-				<% end %>
-			<% end %>
-			<input type="hidden" name="days[][day_of_week]" value="<%= weekday.day %>">	
-			<input type="hidden" name="days[][bar_id]" value="<%= @bar.id %>">
+			<td><%= weekday %>
+				<input type="hidden" name="days[][day_of_week]" value="<%= weekday %>">	
+				<input type="hidden" name="days[][bar_id]" value="<%= @bar.id %>"></td>
+			
+			<td class="time"><input type="text" name="days[][open]" value="<% if day %><%= day.open %><% end %>" <% if day && day.open == 'Closed' %>readonly <% end %> />
 			</td>
-			<td>
-			<% for day in Day.all(:bar_id => @bar.id) do %>
-				<% if day.day_of_week == weekday.day %>
-					<input type="text" name="days[][close]" value="<%= day.close %>" />
-				<% end %>
-			<% end %>
+			
+			<td class="time">
+				<input type="text" name="days[][close]" value="<% if !day.nil? %><%= day.close %><% end %>" <% if day && day.open == 'Closed' %>readonly <% end %>  />
 			</td>
+			
 			<td>
-				<input name="days[][closed]" type="checkbox" value="Closed" />
+				<input name="days[][closed]" class="closed" type="checkbox" <% if day && day.open == 'Closed' %>checked <% end %> value="Closed" />
 			</td>
-			<td>
-				<input type="checkbox" name="coverCheck" /></td>
-			<td>
-			<% for day in Day.all(:bar_id => @bar.id) do %>
-				<% if day.day_of_week == weekday.day %>
+			<td class="cover">
+				<input type="checkbox" class="cover" name="coverCheck" <% if day && !day.cover.empty? %>checked<% end %>  /></td>
+			<td class="price">
+				<% if day && !day.cover.empty? %>
 				<p>
-				<label for="cover<%= weekday.day %>">Price</label>
-				<input type="text" id="cover<%= weekday.day %>" name="days[][cover]" value="<%= day.cover %>" />
+				<label for="cover<%= weekday %>">Price</label>
+				<input type="text" id="cover<%= weekday %>" name="days[][cover]" value="<%= day.cover %>" />
+				</p>
+				<% else %>
+				<p style="display:none;">
+				<label for="cover<%= weekday %>">Price</label>
+				<input type="text" id="cover<%= weekday %>" name="days[][cover]" value="" />
 				</p>
 				<% end %>
-			<% end %>
 			</td>
 		</tr>
 		<% end %>
@@ -47,7 +46,8 @@
 	<h3>Do you have special events?</h3>
 	<p class="event">
 	<% for event in Event.all() do %>
-	      <input type="checkbox" name="event[][title]" value="<%= event.title %>" /><span class="checkbox"><%= event.title %></span><br />
+		<% evt = BarEvent.first(:bar_id => @bar.id, :title => event.title) %>
+	      <input type="checkbox" name="event[][title]" value="<%= event.title %>" <%if evt %>checked<% end %> /><span class="checkbox"><%= event.title %></span><br />
 		  <input type="hidden" name="event[][bar_id]" value="<%= @bar.id %>">
 	    <% end %>
 	</p>

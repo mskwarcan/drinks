@@ -157,12 +157,12 @@ end
 
 ############################Bar Details
 get '/details/:id' do
+  @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   @bar = Bar.get(params[:id])
   @img = true
   
   if logged_in?
     if Bar.authenticate(@bar.id, session[:user])
-       @days = Day.all(:bar_id => :id)
        erb :details
     else
       session[:error] = "You don't not have permission to view this page."
@@ -179,12 +179,36 @@ post '/addDetails/:id' do
   
   if logged_in?
     if Bar.authenticate(@bar.id, session[:user])
-      params[:days].each do |day|
-        Day.new(day).save
-      end
-
+      
       params[:event].each do |events|
-        BarEvent.new(events).save
+        if !events.empty?
+          evt = BarEvent.new(events)
+          if BarEvent.first_or_create(:bar_id => @bar.id, :title => evt.title).update(evt.attributes)
+              session[:flash] = 'Details Updated'
+          else
+              tmp = []
+              evt.errors.each do |e|
+                tmp << "#{e}. <br/>"
+              end
+              session[:error] = tmp
+              redirect("/details/#{@bar.id}")
+          end
+        end
+      end
+      
+      params[:days].each do |day|
+        weekday = Day.new(day)
+        p weekday
+        if Day.first_or_create(:bar_id => @bar.id, :day_of_week => weekday.day_of_week).update(weekday.attributes)
+            session[:flash] = 'Details Updated'
+        else
+            tmp = []
+            weekday.errors.each do |e|
+              tmp << "#{e}. <br/>"
+            end
+            session[:error] = tmp
+            redirect("/details/#{@bar.id}")
+        end
       end
       redirect "/show/#{@bar.id}"
     else
@@ -198,7 +222,7 @@ post '/addDetails/:id' do
 end
 ############################End Bar Details
 
-############################New Event
+############################ Event
 get '/event' do
   #require_admin
   erb :event
@@ -208,21 +232,29 @@ post '/newEvent' do
   #require_admin
   @event = Event.new(params[:event])
   if @event.save
-    redirect "/list"
+    redirect "/event"
   else
     redirect('/event')
   end
 end
-############################End New Event
+
+get '/deleteEvent/:id' do
+  event = Event.get(params[:id])
+    unless event.nil?
+      event.destroy
+    end
+    redirect('/event')
+end
+############################End  Event
 
 ############################Drink Specials
 get '/special/:id' do
+  @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   @bar = Bar.get(params[:id])
   @img = true
   
   if logged_in?
     if Bar.authenticate(@bar.id, session[:user])
-      @bar = Bar.get(params[:id])
       erb :special
     else
       session[:error] = "You don't not have permission to view this page."
@@ -242,7 +274,27 @@ post '/addSpecial/:id' do
       params[:special].each do |specials|
         Special.new(specials).save
       end
-      redirect '/bar'
+      redirect "/special/#{@bar.id}"
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+get '/deleteSpecial/:id' do
+  bar = Special.get(params[:id])
+  
+  if logged_in?
+     if Bar.authenticate(bar.bar_id, session[:user])
+      special = Special.get(params[:id])
+        unless special.nil?
+          special.destroy
+        end
+        redirect('/special')
     else
       session[:error] = "You don't not have permission to view this page."
       redirect "/bar"
@@ -311,6 +363,18 @@ get '/delete/:id' do
     if Bar.authenticate(@bar.id, session[:user])
       bar = Bar.get(params[:id])
       unless bar.nil?
+        special = Special.all(:bar_id => bar.id)
+        special.each do |drink|
+          drink.destroy
+        end
+        day = Day.all(:bar_id => bar.id)
+        day.each do |weekday|
+          weekday.destroy
+        end
+        event = BarEvent.all(:bar_id => bar.id)
+        event.each do |evt|
+          evt.destroy
+        end
         bar.destroy
       end
       redirect('/bar')

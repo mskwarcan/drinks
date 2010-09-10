@@ -40,14 +40,6 @@ class Event
   
 end
 
-class Weekday
-  include DataMapper::Resource
-  
-  property :id,          Serial
-  property :day,         String
-  
-end
-
 class Click
   include DataMapper::Resource
   
