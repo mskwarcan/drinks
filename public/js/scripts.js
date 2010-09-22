@@ -15,12 +15,12 @@ $(document).ready(function(){
 			},
 			password: {
 				required: true,
-				minlength: 5
+				minlength: 5,
+				equalTo: "#confirm_password"
 			},
 			confirm_password: {
 				required: true,
-				minlength: 5,
-				equalTo: "#password"
+				minlength: 5
 			}
 		},
 		messages: {
