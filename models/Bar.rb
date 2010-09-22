@@ -7,14 +7,14 @@ class Bar
   
   property :id,         Serial
   property :person_id,  Integer
-  property :name,       String
-  property :address,    String
-  property :city,       String
-  property :state,      String
+  property :name,       String, :required => true
+  property :address,    String, :required => true
+  property :city,       String, :required => true
+  property :state,      String, :required => true
   property :latlon,     String
-  property :zip,        String
-  property :phone,      String
-  property :url,        String
+  property :zip,        String, :required => true
+  property :phone,      String, :required => true
+  property :url,        String, :required => true
   property :description,Text
   property :created_at, DateTime
   property :updated_at, DateTime

@@ -18,7 +18,7 @@ h2
 	font-weight:normal;
 	margin:0;
 	padding:0;
-	line-height:1;
+	line-height:.7;
 }
 
 h3
@@ -176,6 +176,24 @@ label
 	font-size:24px;
 }
 
+label.error
+{
+	background:#ff7171;
+	color:#000;
+	font-size:12px;
+	position:absolute;
+	top:60px;
+	left:0px;
+	padding:6px 10px;
+	z-index:1;
+}
+
+input.error
+{
+	border:2px solid #ff7171;
+	color: #ff7171;
+}
+
 form.infield label
 {
 	color:#a6a6a6;
@@ -285,7 +303,7 @@ form p
 	margin:0;
 }
 
-.error
+.sessionError
 {
 	background:#ffaeae;
 	border:1px solid #ff7171;
@@ -310,14 +328,46 @@ p.noMargin
 	margin:0;
 }
 
+p.info
+{
+	margin-right:40px;
+}
+
 .links
 {
 	float:right;
 }
 
+.left
+{
+	float:left;
+}
+
 .bar .links a
 {
 	text-align:right;
+}
+
+table.hours tr:nth-child(2n) {
+  background-color: #e5e5e5;
+}
+
+table.hours
+{
+	color:#878787;
+	font-size:14px;
+	margin-top:30px;
+}
+
+table.hours th
+{
+	text-align:left;
+}
+
+table.hours td
+{
+	vertical-align:top;
+	padding-right:10px;
 }
 
 /* END BAR PAGE STYLES */
@@ -400,6 +450,16 @@ table#specials input.drink
 table#specials input.price
 {
 	width:70px;
+}
+
+ul.specials
+{
+	list-style-type:none;
+	padding:0 0 0 10px;
+}
+
+ul.specials li
+{
 }
 
 /* END SPECIALS PAGE */

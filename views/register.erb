@@ -3,25 +3,24 @@
 <form action="/register" method="post" id="person">
 	<p>
 	<label for="email">Email:</label><br />
-	<input type="text" name="person[email]" id="email" /><br />
+	<input type="text" name="person[email]" id="email" class="required email" value="<%= @user.email %>" /><br />
 	<span class="formInfo">This will be your username and not shared with others.</span>
 	</p>
 	<p>
 	<label for="password">Password:</label><br />
-	<input type="password" name="person[password]" id="password" />
+	<input type="password" name="person[password]" class="required" id="password" />
 	</p>
 	<p>
 	<label for="pwdCheck">Password Confirmation:</label><br />
-	<input type="password" name="pwdCheck" id="pwdCheck" />
+	<input type="password" name="confirm_password" id="confirm_password" />
 	</p>
 	<p>
 	<label for="name">Name:</label><br />
-	<input type="text" name="person[name]" id="name" />
+	<input type="text" name="person[name]" class="required" id="name" value="<%= @user.name %>" />
 	</p>
 	<p>
-	<p>
 	<label for="phone">Phone: (Optional)</label><br />
-	<input type="text" name="person[phone]" id="phone" />
+	<input type="text" name="person[phone]" id="phone" value="<%= @user.phone %>" />
 	</p>
 	<p>
 	<input type="submit" class="submit" value="Register" />

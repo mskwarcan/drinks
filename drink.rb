@@ -87,6 +87,7 @@ end
 
 ############################Register Page
 get '/register' do
+  @user = Person.new()
   erb :register
 end
 
@@ -102,7 +103,7 @@ post '/register' do
       tmp << "#{e}. <br/>"
     end
     session[:error] = tmp
-    redirect '/register'
+    erb :register
   end
 end
 ############################End Register Page
@@ -128,6 +129,8 @@ end
 
 ############################New bar
 get '/new' do
+  @bar = Bar.new()
+  
   if !logged_in?
     session[:error] = "You must log in to view this page."
     redirect "/"
@@ -135,7 +138,7 @@ get '/new' do
   erb :newBar
 end
 
-post '/create' do
+post '/new' do
   if !logged_in?
     session[:error] = "You must log in to view this page."
     redirect "/"
@@ -150,7 +153,7 @@ post '/create' do
       tmp << "#{e}. <br/>"
     end
     session[:error] = tmp
-    redirect('/new')
+    erb :new
   end
 end
 ############################End New Bar
@@ -286,15 +289,14 @@ post '/addSpecial/:id' do
 end
 
 get '/deleteSpecial/:id' do
-  bar = Special.get(params[:id])
+  special = Special.get(params[:id])
   
   if logged_in?
-     if Bar.authenticate(bar.bar_id, session[:user])
-      special = Special.get(params[:id])
+     if Bar.authenticate(special.bar_id, session[:user])
         unless special.nil?
           special.destroy
         end
-        redirect('/special')
+        redirect("/special/#{special.bar_id}")
     else
       session[:error] = "You don't not have permission to view this page."
       redirect "/bar"
@@ -389,6 +391,7 @@ get '/delete/:id' do
 end
 
 get '/show/:id' do
+  @img = true
   @bar = Bar.get(params[:id])
   @days = Day.all(:bar_id => @bar.id)
   @specials = Special.all(:bar_id => @bar.id)

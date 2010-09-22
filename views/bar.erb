@@ -9,7 +9,7 @@
 				<a href="/edit/<%= bar.id %>">Edit Bar</a><br />
 				<a href="/details/<%= bar.id %>">Add Hours/Cover/Events</a><br />
 				<a href="/special/<%= bar.id %>">Add a Drink Special</a><br />
-				<a href="/delete/<%= bar.id %>">Delete Bar</a>
+				<a href="javascript:confirmDelete('/delete/<%= @bar.id %>')">Delete Bar</a>
 			</p>
 			<p>
 			<%= bar.address %><br />

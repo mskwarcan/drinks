@@ -27,7 +27,7 @@ helpers do
     if session[:error]
       tmp = session[:error]
       session[:error] = false
-      "<div class=\"error flash\"><table><tr><td><img src=\"../images/error.png\" /></td><td><p>#{tmp}</p></td></tr></table</div>"
+      "<div class=\"sessionError flash\"><table><tr><td><img src=\"../images/error.png\" /></td><td><p>#{tmp}</p></td></tr></table</div>"
     else
       if session[:flash]
         tmp = session[:flash]

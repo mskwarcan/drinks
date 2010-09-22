@@ -1,10 +1,10 @@
 <h2>Edit <%= @bar.name %></h2>
 
-<form action="/update/<%= @bar.id %>" method="post" id="bar">
+<form action="/update/<%= @bar.id %>" class="valid" method="post" id="bar">
 		<input type="hidden" name="_method" value="put" />
 	<p>
 	<label for="name">Bar Name:</label><br />
-	<input type="text" name="bar[name]" id="name" value="<%= @bar.name %>" />
+	<input type="text" name="bar[name]" id="name" class="required" value="<%= @bar.name %>" />
 	</p>
 	<p>
 	<label for="description">Description: (Optional)</label><br />
@@ -12,23 +12,23 @@
 	</p>
 	<p>
 	<label for="address">Address:</label><br />
-	<input type="text" name="bar[address]" id="address" value="<%= @bar.address %>" />
+	<input type="text" name="bar[address]" id="address" class="required" value="<%= @bar.address %>" />
 	</p>
 	<p>
 	<label for="city">City:</label><br />
-	<input type="text" name="bar[city]" id="city" value="<%= @bar.city %>" />
+	<input type="text" name="bar[city]" id="city" class="required" value="<%= @bar.city %>" />
 	</p>
 	<p>
 	<label for="state">State:</label><br />
-	<input type="text" class="state" name="bar[state]" id="state" value="<%= @bar.state %>" />
+	<input type="text" class="state" name="bar[state]" class="required" id="state" value="<%= @bar.state %>" />
 	</p>
 	<p class="zip">
 	<label class="zip" for="zip">Zip:</label><br />
-	<input type="text" class="zip" name="bar[zip]" id="zip" value="<%= @bar.zip %>" />
+	<input type="text" class="zip" name="bar[zip]" class="required" id="zip" value="<%= @bar.zip %>" />
 	</p>
 	<p>
 	<label for="phone">Phone:</label><br />
-	<input type="text" name="bar[phone]" id="phone" value="<%= @bar.phone %>" />
+	<input type="text" name="bar[phone]" id="phone" class="required" value="<%= @bar.phone %>" />
 	</p>
 	<p>
 	<label for="url">Website: (optional)</label><br />

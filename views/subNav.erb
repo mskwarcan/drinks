@@ -1,0 +1,25 @@
+<h2>Welcome</h2>
+<p>
+<a href="/account/<%= session[:user] %>">My Account</a><br />
+<a href="/bar">My Bars</a><br />
+<a href="/new">Create a Bar</a><br />
+<a href="/logout">Log out</a>
+</p>
+
+<% if @bar %>
+<h3><%= @bar.name %></h3>
+	<p>
+		<a href="/show/<%= @bar.id %>">View Bar</a><br />
+		<a href="/edit/<%= @bar.id %>">Edit Bar</a><br />
+		<a href="/details/<%= @bar.id %>">Edit Hours/Cover</a><br />
+		<a href="/special/<%= @bar.id %>">Edit a Special</a><br />
+		<a href="javascript:confirmDelete('/delete/<%= @bar.id %>')">Delete Bar</a><br />
+	</p>
+<% end %>
+ <% @bars = Bar.all(:order => [:name.asc], :person_id => session[:user]) %>
+<h3>My Bars</h3>
+	<p>
+		<% @bars.each_with_index do |bar,i| %>
+			<a href="/show/<%= bar.id %>"><%=bar.name %></a><br />
+		<% end %>
+	</p>

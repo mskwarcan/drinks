@@ -7,6 +7,8 @@
 	<link href="../css/styles.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/jquery.infieldlabel.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.alerts.js"></script>
 	<script type="text/javascript" src="../js/scripts.js"></script>
 </head>
 
@@ -27,13 +29,7 @@
 		<%= erb(:search, :layout => false) %>
 		
 		<% if logged_in? %>
-			<h2>Welcome</h2>
-			<p>
-			<a href="/account/<%= session[:user] %>">My Account</a><br />
-			<a href="/bar">My Bars</a><br />
-			<a href="/new">Create a Bar</a><br />
-			<a href="/logout">Log out</a>
-			</p>
+			<%= erb(:subNav, :layout => false) %>	
 		<% else %>
 			<%= erb(:login, :layout => false) %>
 		<% end %>

@@ -1,14 +1,14 @@
 <h2>Edit Your Account</h>
 
-<form action="/editAccount/<%= @user.id %>" method="post" id="person">
+<form action="/editAccount/<%= @user.id %>" class="valid" method="post" id="person">
 	<p>
 	<label for="email">Email:</label><br />
-	<input type="text" name="person[email]" id="email" value="<%= @user.email %>" /><br />
+	<input type="text" name="person[email]" id="email" class="required" value="<%= @user.email %>" /><br />
 	<span class="formInfo">This will be your username and not shared with others.</span>
 	</p>
 	<p>
 	<label for="password">Password:</label><br />
-	<input type="password" name="person[password]" id="password" />
+	<input type="password" name="person[password]" class="required" id="password" />
 	</p>
 	<p>
 	<label for="pwdCheck">Password Confirmation:</label><br />
@@ -16,7 +16,7 @@
 	</p>
 	<p>
 	<label for="name">Name:</label><br />
-	<input type="text" name="person[name]" value="<%= @user.name %>" id="name" />
+	<input type="text" name="person[name]" class="required" value="<%= @user.name %>" id="name" />
 	</p>
 	<p>
 	<p>

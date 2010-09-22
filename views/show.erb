@@ -1,58 +1,51 @@
-<p class="links">
-<span class="links">
-<% if logged_in? %>
-	<% if Bar.authenticate(@bar.id, session[:user]) %>
-		<a href="/edit/<%= @bar.id %>">Edit Bar</a><br />
-		<a href="/delete/<%= @bar.id %>">Delete Bar</a><br />
-	<% end %>
-<% end %>
-</span>
-</p>
 <h3><%= @bar.name %></h3>
-<p class="noMargin">
+<p class="noMargin info left">
 	<%= @bar.address %><br />
 	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %><br />
 	<%= @bar.phone %><br />
 	<% if @bar.url %>
-		Website: <a href="http://<%= @bar.url %>"><%= @bar.name %></a><br /><br />
-	<% else %>
-		<br />
+		Website: <a href="http://<%= @bar.url %>"><%= @bar.name %></a>
 	<% end %>
-	
-	<%= @bar.description %>
 </p>
-<p>
-	<b>Hours of Operation:</b><br />
-	<% if @days.nil? %>
+	<p class="description noMargin">
+	<%= @bar.description %>
+	</p>
+
+	<% if @days.empty? %>
+	<p class="noMargin">
+		<b>Hours of Operation:</b><br />
 		This bar has yet to make their hours available.<br />
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
 			<a href="/details/<%= @bar.id %>">Add Hours</a>
 		<% end %>
+	</p>
 	<% else %>
+	<table class="hours" width="530px" cellspacing="0" cellpadding="3">
+		<tr>
+			<th>Day of Week</th><th>Hours</th><th>Specials</th><th>Cover</th>
+		</tr>
 		<% @days.each_with_index do |day,i| %>
-			<%=day.day_of_week %> <%=day.open %> - <%=day.close %> <% if !day.cover.empty? %><b>Cover: <%=day.cover %></b><% end %><br />
+		<tr>
+			<td><%= day.day_of_week %></td>
+			<td><% if day.open == 'Closed' %>Closed<% else %> <%=day.open %> - <%=day.close %><% end %></td>
+			<td><% @specials.each do |special| %>
+					<% if special.day_of_week == day.day_of_week %>
+						<%= special.type %> - <%=special.drink_name %> $<%=special.price %><br />
+					<% end %>
+				<% end %></td>
+			<td><% if !day.cover.to_s.empty? %><b>Cover: $<%=day.cover %></b><% end %> </td>
+		</tr>
 		<% end %>
-		<% if Bar.authenticate(@bar.id, session[:user]) %>
-			<a href="/details/<%= @bar.id %>">Edit Hours</a>
-		<% end %>
+		</table>
 	<% end %>
-</p>
-<p>
-	<b>Daily Drink Specials:</b><br />
-	<% if @specials.nil? %>
+	
+	<% if @specials.empty? %>
+	<p>
+		<b>Drink Specials:</b><br />
 		This bar has yet to make their drink specials available.<br />
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
-			<a href="/special/<%= @bar.id %>">Add a Special</a>
+			<a href="/special/<%= @bar.id %>">Add Specials</a>
 		<% end %>
-	<% else %>
-		<% @specials.each do |special| %>
-			<%=special.day_of_week %> <%=special.drink_name %> $<%=special.price %> <br />
-		<% end %>
-		<% if Bar.authenticate(@bar.id, session[:user]) %>
-			<a href="/special/<%= @bar.id %>">Edit/Add a Special</a>
-		<% end %>
+	</p>
 	<% end %>
-</p>
-
-<p>Last Updated on <%= @bar.updated_at.strftime("%B %d, %Y") %></p>
 
