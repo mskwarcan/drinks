@@ -7,8 +7,9 @@
 			<h3><a href="/show/<%= bar.id %>"><%=bar.name %></a></h3>
 			<p class="noMargin links">
 				<a href="/edit/<%= bar.id %>">Edit Bar</a><br />
-				<a href="/details/<%= bar.id %>">Add Hours/Cover/Events</a><br />
+				<a href="/details/<%= bar.id %>">Add Hours/Cover</a><br />
 				<a href="/special/<%= bar.id %>">Add a Drink Special</a><br />
+				<a href="/events/<%= bar.id %>">Add an Event</a><br />
 				<a href="javascript:confirmDelete('/delete/<%= @bar.id %>')">Delete Bar</a>
 			</p>
 			<p>

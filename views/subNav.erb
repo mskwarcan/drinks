@@ -17,9 +17,11 @@
 	</p>
 <% end %>
  <% @bars = Bar.all(:order => [:name.asc], :person_id => session[:user]) %>
+<% if !@bars.empty? %>
 <h3>My Bars</h3>
 	<p>
 		<% @bars.each_with_index do |bar,i| %>
 			<a href="/show/<%= bar.id %>"><%=bar.name %></a><br />
 		<% end %>
 	</p>
+<% end %>

@@ -12,7 +12,8 @@
 	</p>
 
 	<% if @days.empty? %>
-	<p class="noMargin">
+	<p class="noMargin clear">
+		<br />
 		<b>Hours of Operation:</b><br />
 		This bar has yet to make their hours available.<br />
 		<% if Bar.authenticate(@bar.id, session[:user]) %>
@@ -47,5 +48,18 @@
 			<a href="/special/<%= @bar.id %>">Add Specials</a>
 		<% end %>
 	</p>
+	<% else %>
+		<% if @days.empty? %>
+		<p><b>Drink Specials:</b><br /></p>
+		<% @day.each do |weekday| %>
+				<ul class='specials'>
+			<% @specials.each do |drink| %>
+				<% if weekday == drink.day_of_week %>
+					<li><b><%= drink.day_of_week %></b> <%= drink.type %> - $<%= drink.price %> <%= drink.drink_name %></li>
+				<% end %>
+			<% end %>
+				</ul>
+		<% end %>
+		<% end %>
 	<% end %>
 

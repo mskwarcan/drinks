@@ -183,34 +183,23 @@ post '/addDetails/:id' do
   if logged_in?
     if Bar.authenticate(@bar.id, session[:user])
       
-      params[:event].each do |events|
-        if !events.empty?
-          evt = BarEvent.new(events)
-          if BarEvent.first_or_create(:bar_id => @bar.id, :title => evt.title).update(evt.attributes)
-              session[:flash] = 'Details Updated'
-          else
-              tmp = []
-              evt.errors.each do |e|
-                tmp << "#{e}. <br/>"
-              end
-              session[:error] = tmp
-              redirect("/details/#{@bar.id}")
-          end
-        end
-      end
-      
       params[:days].each do |day|
         weekday = Day.new(day)
-        p weekday
-        if Day.first_or_create(:bar_id => @bar.id, :day_of_week => weekday.day_of_week).update(weekday.attributes)
-            session[:flash] = 'Details Updated'
+        thisday = Day.first(:bar_id => @bar.id, :day_of_week => weekday.day_of_week)
+        if thisday
+            thisday.update(weekday.attributes)
+            session[:flash] = 'Hours Updated'
         else
+          if weekday.save
+            session[:flash] = 'Hours Updated'
+          else
             tmp = []
             weekday.errors.each do |e|
               tmp << "#{e}. <br/>"
             end
             session[:error] = tmp
             redirect("/details/#{@bar.id}")
+          end
         end
       end
       redirect "/show/#{@bar.id}"
@@ -224,6 +213,62 @@ post '/addDetails/:id' do
   end
 end
 ############################End Bar Details
+
+############################ Bar Events
+get '/events/:id' do
+  @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  @bar = Bar.get(params[:id])
+  @img = true
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+       erb :events
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+post '/events/:id' do 
+  @bar = Bar.get(params[:id])
+  
+  if logged_in?
+    if Bar.authenticate(@bar.id, session[:user])
+      
+      params[:event].each do |events|
+        if !events.empty?
+          evt = BarEvent.new(events)
+          if BarEvent.first(:bar_id => @bar.id, :title => evt.title).update(evt.attributes)
+              session[:flash] = 'Details Updated'
+          else
+            if evt.save
+              redirect "/show/#{@bar.id}"
+            else
+              tmp = []
+              evt.errors.each do |e|
+                tmp << "#{e}. <br/>"
+              end
+              session[:error] = tmp
+              redirect("/events/#{@bar.id}")
+            end
+          end
+        end
+      end
+    else
+      session[:error] = "You don't not have permission to view this page."
+      redirect "/bar"
+    end
+  else
+    session[:error] = "You must log in to view this page."
+    redirect "/"
+  end
+end
+
+############################End Bar Events
 
 ############################ Event
 get '/event' do
@@ -392,6 +437,7 @@ end
 
 get '/show/:id' do
   @img = true
+  @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   @bar = Bar.get(params[:id])
   @days = Day.all(:bar_id => @bar.id)
   @specials = Special.all(:bar_id => @bar.id)

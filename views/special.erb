@@ -40,16 +40,15 @@
 <p>You don't currently have any drink specials posted.</p>
 <% else %>
 	<% @day.each do |weekday| %>
-		<p>
 			<ul class='specials'>
 		<% special.each do |drink| %>
 			<% if weekday == drink.day_of_week %>
-				<li><b><%= drink.day_of_week %></b> <%= drink.type %> - <%= drink.price %> <%= drink.drink_name %> <a href="/deleteSpecial/<%= drink.id %>">Delete</a></li>
+				<li><b><%= drink.day_of_week %></b> <%= drink.type %> - $<%= drink.price %> <%= drink.drink_name %> <a href="/deleteSpecial/<%= drink.id %>">Delete</a></li>
 			<% end %>
 		<% end %>
-		<% if Special.all(:day_of_week => weekday).empty? %>
+		<% if Special.all(:day_of_week => weekday, :bar_id => @bar.id).empty? %>
 			<li>No drinks specials currently on <b><%= weekday %></b></li>
 		<% end %>
-			</ul></p>
+			</ul>
 	<% end %>
 <% end %>

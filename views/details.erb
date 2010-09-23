@@ -1,6 +1,6 @@
-<h2><%= @bar.name %> Details</h2>
+<h2><%= @bar.name %> Hours</h2>
 
-<form action="/addDetails/<%= @bar.id %>" class="infield details valid" method="post" id="bar">
+<form action="/addDetails/<%= @bar.id %>" class="infield details" method="post" id="bar">
 	<h3>Hours</h3>
 	<p>Remember to include A.M./P.M.</p>
 	<table id="details">
@@ -46,15 +46,7 @@
 		<% end %>
 	</table>
 	</p>
-	<h3>Do you have special events?</h3>
-	<p class="event">
-	<% for event in Event.all() do %>
-		<% evt = BarEvent.first(:bar_id => @bar.id, :title => event.title) %>
-	      <input type="checkbox" name="event[][title]" value="<%= event.title %>" <% if evt %>checked<% end %> /><span class="checkbox"><%= event.title %></span><br />
-		  <input type="hidden" name="event[][bar_id]" value="<%= @bar.id %>">
-	<% end %>
-	</p>
 	<p>
-	<input type="submit" class="submit" value="Add Details" />
+	<input type="submit" class="submit" value="Add Hours" />
 	</p>
 </form>

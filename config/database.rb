@@ -5,6 +5,7 @@ require 'models/BarEvent'
 require 'models/Day'
 require 'models/Bar'
 require 'models/Special'
+#require 'models/Location'
 
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/bars.db")

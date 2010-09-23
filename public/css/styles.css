@@ -52,6 +52,10 @@ p
 	font-size:14px;
 }
 
+.clear
+{
+	clear:left;
+}
 /* STRUCTURE */
 #wrapper
 {
@@ -76,6 +80,7 @@ p
 {
 	width:530px;
 	margin-right:60px;
+	min-height:400px;
 }
 
 #innerMain
@@ -188,6 +193,11 @@ label.error
 	z-index:1;
 }
 
+#bar label.error
+{
+	top:67px;
+}
+
 input.error
 {
 	border:2px solid #ff7171;
@@ -252,12 +262,12 @@ input.zip
 	width:166px;
 }
 
-label.url
+label.web
 {
 	color:#646363;
 }
 
-input.url
+input.web
 {
 	width:237px;
 }
@@ -318,6 +328,11 @@ form p
 /* END FLASH STYLES */
 
 /* BAR PAGE STYLES */
+.bar
+{
+	height:110px;
+}
+
 .bar p
 {
 	margin:0;
@@ -455,11 +470,14 @@ table#specials input.price
 ul.specials
 {
 	list-style-type:none;
-	padding:0 0 0 10px;
+	padding:0;
+	margin:7px;
 }
 
 ul.specials li
 {
+	color:#646363;
+	font-size:14px;
 }
 
 /* END SPECIALS PAGE */
