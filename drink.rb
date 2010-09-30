@@ -74,12 +74,35 @@ end
 
 ############################Search
 post '/search' do
-  @address = Person.new(params[:bar])
-  @latlon = Geokit::Geocoders::YahooGeocoder.geocode "#{@address.address}, #{@address.city} #{@address.state}"
+  @img = true
+
+  address = Bar.new(params[:bar])
+  newAddress = Geokit::Geocoders::YahooGeocoder.geocode "#{address.address}, #{address.city} #{address.state}, #{address.zip}"
+  bars = Bar.all()
   
-  @bars = Bar.all(:address.near => {:origin => @latlon, :distance => 5.mi})
+  @bars = []
   
-  session[:error] = @bars
+  bars.each do |bar|
+    barAddress = Geokit::Geocoders::YahooGeocoder.geocode "#{bar.address}, #{bar.city} #{bar.state}, #{bar.zip}"
+    dis = newAddress.distance_to(barAddress)
+    if dis <= 10
+      @bars << {:bar => Bar.first(:id => bar.id), :distance => dis}
+    end
+  end
+  
+  @bars.sort! { |a,b| a[:distance] <=> b[:distance] }
+  
+  t = Time.now 
+  t = t - + (60 * 60 * 5)
+  @today = t.strftime("%A")
+  
+  @specials = []
+  
+  @bars.each do |bar|
+    @specials = Special.all(:day_of_week => @today, :bar_id => bar.id)
+  end
+  
+  erb :list
   
 end
 
@@ -153,7 +176,7 @@ post '/new' do
       tmp << "#{e}. <br/>"
     end
     session[:error] = tmp
-    erb :new
+    erb :newBar
   end
 end
 ############################End New Bar

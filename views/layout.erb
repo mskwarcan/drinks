@@ -36,20 +36,9 @@
 	</div>
 
 	<div id="main">
-		<% if @img.nil?%>
-			<div id="innerMain">
-		<% end %>
 		<%= yield %>
-		</div>
-	<% if @img.nil?%>
-		<img class="main" src="../images/beer_btm.jpg">
 	</div>
-	<% end %>
-	
 	<div id="footer">
-		<% if @img.nil?%>
-			<img class="footer" src="../images/beer_top.jpg">
-		<% end %>
 		<div id="footerBar">
 		<p>Drinkr&copy; 2010</p>
 	</div>

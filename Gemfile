@@ -8,7 +8,9 @@ gem "dm-sqlite-adapter"
 gem "dm-postgres-adapter", :group => 'production'
 gem "data_mapper"
 gem "pony"
+gem "dm-migrations"
+gem "dm-validations"
+gem "dm-is-versioned"
 gem "geokit"
-gem "dm-geokit", :git => "git://github.com/mskwarcan/dm-geokit.git"
-
+gem "dm-geokit"
 

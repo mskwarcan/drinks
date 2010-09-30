@@ -14,7 +14,7 @@ class Bar
   property :latlon,     String
   property :zip,        String, :required => true
   property :phone,      String, :required => true
-  property :url,        String, :required => true
+  property :url,        String
   property :description,Text
   property :created_at, DateTime
   property :updated_at, DateTime

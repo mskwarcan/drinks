@@ -1,0 +1,14 @@
+<h2><%= @bar.name %> Events</h2>
+<form action="/addEvent/<%= @bar.id %>" class="details" method="post" id="bar">
+<h3>Do you have special events?</h3>
+<p class="event">
+<% for event in Event.all() do %>
+	<% evt = BarEvent.first(:bar_id => @bar.id, :title => event.title) %>
+      <input type="checkbox" name="event[][title]" value="<%= event.title %>" <% if evt %>checked<% end %> /><span class="checkbox"><%= event.title %></span><br />
+	  <input type="hidden" name="event[][bar_id]" value="<%= @bar.id %>">
+<% end %>
+</p>
+<p>
+<input type="submit" class="submit" value="Add Event" />
+</p>
+</form>

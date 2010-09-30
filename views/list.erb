@@ -1,22 +1,27 @@
-<h1><%= @title %></h1>
-
-<% @bars.each_with_index do |bar,i| %>
-<p>
-	<a href="/click/<%= bar.id %>"><%=bar.name %></a><br />
-	<b>Address:</b><br />
-	<%= bar.address %><br />
-	<%= bar.city %>, <%= bar.state %> <%= bar.zip %><br />
-	<a href="/delete/<%= bar.id %>">Delete</a><br />
-	<a href="/edit/<%= bar.id %>">Edit</a><br />
-</p>
-<% end %>
-</p>
-<% t = Time.now 
-   t = t - + (60 * 60 * 5)%>
-Today is <%= t.strftime("%A") %>:
-The drink specials for today are:<br />
-<% @specials.each_with_index do |special,i| %>
-    <% if special.day_of_week == Time.new.strftime("%A") %>
-		<%=special.drink_name %> $<%=special.price %> <br />
+<div class="searchBar">
+	<p><b><%= @today %> Specials</b></p>
+	<% @specials.each do |special| %>
+	  <% if special.type == 'beer' %>
+		<%= special.price %> <%= special.name %>
+	  <% end %>
 	<% end %>
+</div>
+
+<div class="results">
+<% if !@bars.empty? %>
+	<% @bars.each do |bar| %>
+	<div class="bar">
+		<h3><a href="/show/<%= bar[:bar].id %>"><%= bar[:bar].name %></a></h3>
+		<h2 class="distance"><%= sprintf("%.1f", bar[:distance]) %> MI</h2>
+		<p>
+		<%= bar[:bar].address %><br />
+		<%= bar[:bar].city %>, <%= bar[:bar].state %> <%= bar[:bar].zip %><br />
+		<%= bar[:bar].phone %><br />
+		<a href="/show/<%= bar[:bar].id %>">View This Bar's Details</a><br />
+		</p>
+	</div>
+	<% end %>
+<% else %>
+	<p>There are no bars currently registered around that area. Spread the word to you favorite bars next time you are out.</p>
 <% end %>
+</div>
