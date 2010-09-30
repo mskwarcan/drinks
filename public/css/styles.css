@@ -170,6 +170,11 @@ img.homeImage
 	margin-top:-40px;
 }
 
+img.sideImage
+{
+	float:right;
+}
+
 h2.slogan
 {
 	background:#fff;
