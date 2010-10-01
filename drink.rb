@@ -96,10 +96,39 @@ post '/search' do
   t = t - + (60 * 60 * 5)
   @today = t.strftime("%A")
   
-  @specials = []
+  todays_specials = []
+  specials = Special.all(:day_of_week => @today, :order => [ :price.asc ])
   
-  @bars.each do |bar|
-    @specials = Special.all(:day_of_week => @today, :bar_id => bar.id)
+  specials.each do |special|
+    @bars.each do |bar|
+      if bar[:bar].id == special.bar_id
+        todays_specials << Special.first(:id => special.id)
+      end
+    end
+  end
+  
+  @beer = []
+  @pitcher = []
+  @mixed = []
+  @shot = []
+  @wine = []
+  
+  todays_specials.each do |special|
+    if special.type == 'Beer'
+      @beer << Special.first(:id => special.id)
+    end
+    if special.type == 'Pitcher'
+      @pitcher << Special.first(:id => special.id)
+    end
+    if special.type == 'Mixed'
+      @mixed << Special.first(:id => special.id)
+    end
+    if special.type == 'Shot'
+      @shot << Special.first(:id => special.id)
+    end
+    if special.type == 'Wine'
+      @wine << Special.first(:id => special.id)
+    end
   end
   
   erb :list

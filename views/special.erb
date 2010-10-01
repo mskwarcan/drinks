@@ -14,6 +14,7 @@
 			</td>
 			<td><select name="special[][type]">
 				<option value="Beer">Beer</option>
+				<option value="Pitcher">Pitcher</option>
 				<option value="Mixed">Mixed Drink</option>
 				<option value="Shot">Shot</option>
 				<option value="Wine">Wine</option>
@@ -24,7 +25,7 @@
 				<input type="hidden" name="special[][bar_id]" value="<%= @bar.id %>">
 			</td>
 			<td class="price">
-			<input type="text" class="price" class="required" name="special[][price]" />
+			$<input type="text" class="price" class="required" name="special[][price]" />
 			</td>
 		</tr>
 	</table>
