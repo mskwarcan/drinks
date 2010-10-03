@@ -5,7 +5,7 @@
 	<p>Remember to include A.M./P.M.</p>
 	<table id="details">
 		<tr>
-			<th>Day of Week</th><th>Opens At</th><th>Closes At</th><th>Closed</th><th>Cover?</th><th></th>
+			<th>Day of Week</th><th>Open</th><th>Close</th><th>Closed</th><th>Cover?</th><th></th>
 		</tr>
 		<% @day.each do |weekday, i| %>
 		<% day = Day.first(:bar_id => @bar.id, :day_of_week => weekday) %>
@@ -25,10 +25,10 @@
 			</td>
 			
 			<td>
-				<input name="days[][closed]" class="closed" type="checkbox" <% if day.open == 'Closed' %>checked <% end %> value="Closed" />
+				<input name="days[][closed]" class="closed box" type="checkbox" <% if day.open == 'Closed' %>checked <% end %> value="Closed" />
 			</td>
 			<td class="cover">
-				<input type="checkbox" class="cover" name="coverCheck" <% if !day.cover.to_s.empty? %>checked<% end %>  /></td>
+				<input type="checkbox" class="cover box" name="coverCheck" <% if !day.cover.to_s.empty? %>checked<% end %>  /></td>
 			<td class="price">
 				<% if !day.cover.to_s.empty? %>
 				<p>

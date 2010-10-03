@@ -18,26 +18,42 @@
 
 <body>
 <div id="wrapper">
-	<div id="header">
-		<div class="header_right"><ul><li><a href="/">Home</a></li><li><a href="/about">About Drinkr</a></li><li><a href="/faq">FAQs</a></li><li class="last"><a href="/contact">Contact</a></li></ul></div>
-		<a href="/"><h1 class="header">Drinkr - Share your bar with the world.</h1></a>
-	</div>
-	
 	<%= show_flash %>
 	
 	<div id="sidebar">
-		<%= erb(:search, :layout => false) %>
+		<div class="topBar">
+			<div class="block"></div>
+			<a href="/"><h1 class="header">Drinkr</h1><h3 class="header">Share your bar with the world.</h3></a>
+		</div>
+			<%= erb(:search, :layout => false) %>
+	</div>
+
+	<div id="main">	
+	<div class="topBar"><div class="block"></div>
+	<ul><li><a href="/">Home</a></li><li><a href="/about">About Drinkr</a></li><li><a href="/faq">FAQs</a></li><li class="last"><a href="/contact">Contact</a></li></ul>
+	</div>
+	<% if logged_in? %>
+		<%= erb(:subNav, :layout => false) %>
+		<div class="content">
+			<%= yield %>
+		</div>
+	<% else %>
+		<%= yield %>
+	<% end %>
+	</div>
+	
+	<div id="right">
+		<div class="topBar">
+			<div class="block"></div>
+			<ul><li class="last"><a href="/">Login</a></li></ul>
+		</div>
 		
-		<% if logged_in? %>
-			<%= erb(:subNav, :layout => false) %>	
-		<% else %>
+		
+		<% if !logged_in? %>
 			<%= erb(:login, :layout => false) %>
 		<% end %>
 	</div>
 
-	<div id="main">
-		<%= yield %>
-	</div>
 	<div id="footer">
 		<div id="footerBar">
 		<p>Drinkr&copy; 2010</p>

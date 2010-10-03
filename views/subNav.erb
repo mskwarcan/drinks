@@ -1,4 +1,5 @@
-<h2>Welcome</h2>
+<div class="subnav">
+<h3>Navigation</h3>
 <p>
 <a href="/account/<%= session[:user] %>">My Account</a><br />
 <a href="/bar">My Bars</a><br />
@@ -6,7 +7,7 @@
 <a href="/logout">Log out</a>
 </p>
 
-<% if @bar %>
+<% if @bar && !@new == true%>
 <h3><%= @bar.name %></h3>
 	<p>
 		<a href="/show/<%= @bar.id %>">View Bar</a><br />
@@ -25,3 +26,4 @@
 		<% end %>
 	</p>
 <% end %>
+</div>

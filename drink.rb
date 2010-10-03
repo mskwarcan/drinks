@@ -182,6 +182,7 @@ end
 ############################New bar
 get '/new' do
   @bar = Bar.new()
+  @new = true
   
   if !logged_in?
     session[:error] = "You must log in to view this page."
