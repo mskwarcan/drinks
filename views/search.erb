@@ -20,3 +20,59 @@
 	<input type="submit" class="submit" value="Search" />
 	</p>
 </form>
+
+<% if @today %>
+<p class="today"><b><%= @today %> Specials</b></p>
+<div class="searchBar">
+	<% if !@beer.empty? %>
+		<p><b>Beer</b></p>
+		<% @beer.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					$<%= special.price %> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+	<% end %>
+	<% if !@pitcher.empty? %>
+		<p><b>Pitchers</b></p>
+		<% @pitcher.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					$<%= special.price %> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+	<% end %>
+	<% if !@mixed.empty? %>
+		<p><b>Mixed Drinks</b></p>
+		<% @mixed.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					$<%= special.price %> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+	<% end %>
+	<% if !@shot.empty? %>
+		<p><b>Shots</b></p>
+		<% @shot.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					$<%= special.price %> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+	<% end %>
+	<% if !@wine.empty? %>
+		<p><b>Wine</b></p>
+		<% @wine.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					$<%= special.price %> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+	<% end %>
+</div>
+<% end %>

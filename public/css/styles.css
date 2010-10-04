@@ -55,6 +55,11 @@ p
 	color:#646363;
 }
 
+#right p.grey
+{
+	color:#646363;
+}
+
 .clear
 {
 	clear:left;
@@ -160,6 +165,7 @@ p
 {
 	padding:0;
 	float:right;
+	margin:0;
 }
 
 .topBar ul li
@@ -167,7 +173,7 @@ p
 	list-style-type:none;
 	float:left;
 	font-size:14px;
-	margin:17px 22px 0 0px;
+	margin:5px 22px 0 0px;
 }
 
 .topBar ul li.last
@@ -442,27 +448,16 @@ form p
 
 .searchBar
 {
-	background:#011815;
-	width:175px;
-	padding:10px 0;
-	float:left;
-	min-height:400px;
 	font-size:12px;
-	color:#FFF6DE;
-	clear:left;
-}
-
-p.today
-{
-	float:left;
+	color:#646363;
 }
 
 .searchBar p
 {
 	padding:0 10px;
 	margin:0 0 4px 0;
-	color:#fff;
 	font-size:14px;
+	color:#3fee00;
 }
 
 .searchBar .special
@@ -473,7 +468,7 @@ p.today
 
 .searchBar .special:nth-child(2n)
 {
-	background:#363636;
+	background:#2d2e2d;
 }
 
 h2.distance
@@ -483,18 +478,13 @@ h2.distance
 	font-size:32px;
 }
 
-.results
-{
-	margin-left:195px;
-}
-
 .results .bar
 {
 	padding:10px 10px 0 10px;
 }
 
 .results .bar:nth-child(2n) {
-  background-color: #e5e5e5;
+  background-color: #2d2e2d;
 }
 
 /* END SEARCH STYLES */
@@ -502,21 +492,12 @@ h2.distance
 /* BAR PAGE STYLES */
 .subnav
 {
-	background:#011815;
-	width:155px;
-	padding:10px;
 	float:left;
-	min-height:400px;
 	font-size:12px;
-	color:#FFF6DE;
-	margin-right:20px;
-	position:relative;
-	z-index:1;
 }
 
 .subnav h3
 {
-	color:#FFF6DE;
 	font-size:18px;
 }
 
@@ -556,7 +537,7 @@ p.info
 }
 
 table.hours tr:nth-child(2n) {
-  background-color: #e5e5e5;
+  background-color: #2d2e2d;
 }
 
 table.hours
