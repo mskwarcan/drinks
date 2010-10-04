@@ -17,6 +17,7 @@ end
 
 ############################Home Page
 get '/' do
+  @bars = Bar.all(:order => [ :created_at.desc ], :limit => 5)
   erb :welcome
 end
 ############################End Home Page

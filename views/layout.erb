@@ -32,25 +32,16 @@
 	<div class="topBar"><div class="block"></div>
 	<ul><li><a href="/">Home</a></li><li><a href="/about">About Drinkr</a></li><li><a href="/faq">FAQs</a></li><li class="last"><a href="/contact">Contact</a></li></ul>
 	</div>
-	<% if logged_in? %>
-		<%= erb(:subNav, :layout => false) %>
-		<div class="content">
-			<%= yield %>
-		</div>
-	<% else %>
 		<%= yield %>
-	<% end %>
 	</div>
 	
 	<div id="right">
-		<div class="topBar">
-			<div class="block"></div>
-			<ul><li class="last"><a href="/">Login</a></li></ul>
-		</div>
-		
+		<div class="topBar">	
 		
 		<% if !logged_in? %>
 			<%= erb(:login, :layout => false) %>
+		<% else %>
+			<%= erb(:subNav, :layout => false) %>
 		<% end %>
 	</div>
 

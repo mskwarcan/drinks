@@ -26,7 +26,7 @@ From: #{self.subject}
 Email: #{self.email}
 Message: #{self.message}
 EOM
-    Pony.mail(:to => 'mike@balcomagency.com', :from => "#{self.email}",
+    Pony.mail(:to => 'info@drinkr.net', :from => "#{self.email}",
         :subject => "#{subject} from #{self.subject}",
         :body => body,
         :via => :smtp, :via_options => {

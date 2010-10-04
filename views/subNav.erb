@@ -1,11 +1,8 @@
+<div class="block"></div>
+<ul><li><a href="/account/<%= session[:user] %>">My Account</a></li><li><a href="/bar">My Bars</a></li><li><a href="/new">Create a Bar</a></li><li class="last"><a href="/logout">Log out</a></li></ul>
+</div>
+
 <div class="subnav">
-<h3>Navigation</h3>
-<p>
-<a href="/account/<%= session[:user] %>">My Account</a><br />
-<a href="/bar">My Bars</a><br />
-<a href="/new">Create a Bar</a><br />
-<a href="/logout">Log out</a>
-</p>
 
 <% if @bar && !@new == true%>
 <h3><%= @bar.name %></h3>

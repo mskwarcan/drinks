@@ -29,6 +29,12 @@ h3
 	padding:0;
 	line-height:1;
 }
+
+h3.margin
+{
+	margin:0 0 5px 0;
+}
+
 h3 a
 {
 	text-decoration:none;
@@ -48,15 +54,30 @@ a
 p
 {
 	font-size:14px;
-}
-
-#main p
-{
 	color:#646363;
 }
 
-#right p.grey
+label
 {
+	font-size:24px;
+}
+
+input
+{
+	font-size:24px;
+	height:32px;
+	width:286px;
+	background:#2d2e2d;
+}
+
+textarea
+{
+	border:#00a1ff solid 2px;
+	font-size:14px;
+	background:#2d2e2d;
+	height:32px;
+	height: 140px;
+	width:286px;
 	color:#646363;
 }
 
@@ -81,39 +102,12 @@ p
 	margin-bottom:10px;
 }
 
-#sidebar .topBar
-{
-	margin-left:0px;
-}
-
-#main .topBar .block
-{
-	margin-left:-10px;
-}
-
-#right .topBar .block
-{
-	margin-left:-20px;
-}
-
-.block
-{
-	height:5px;
-	width:100%;
-	padding:0 10px;
-}
-
 #sidebar
 {
 	width:300px;
 	float:left;
 	padding:0 20px 0 0;
 	color:#3fee00;
-}
-
-#sidebar .block
-{
-	background:#3fee00;
 }
 
 #main
@@ -125,27 +119,12 @@ p
 	color:#00a1ff;
 }
 
-#main .block
-{
-	background:#00a1ff;
-}
-
 #right
 {
 	width:300px;
 	float:left;
 	padding:0 0 0 20px;
 	color:#ee006a;
-}
-
-#right .block
-{
-	background:#ee006a;
-}
-
-.content
-{
-	margin-left:195px;
 }
 
 #footer
@@ -159,6 +138,92 @@ p
 	height:36px;
 }
 /* END STRUCTURE */
+
+/* Sidebar Left Styles */
+
+#sidebar .block
+{
+	background:#3fee00;
+}
+
+#sidebar .topBar
+{
+	margin-left:0px;
+}
+
+#sidebar label
+{
+	color:#3fee00;
+}
+
+#sidebar input.submit
+{
+	background:#3fee00;
+}
+
+#sidebar input
+{
+	border:#3fee00 solid 2px;
+	color:#3fee00;
+}
+
+/* Middle Column Styles */
+
+#main .block
+{
+	background:#00a1ff;
+	margin-left:-10px;
+}
+
+#main label
+{
+	color:#00a1ff;
+}
+
+#main .topBar ul li a
+{
+	color:#00a1ff;
+}
+
+#main input.submit
+{
+	background:#00a1ff;
+}
+
+#main input
+{
+	border:#00a1ff solid 2px;
+	color:#00a1ff;
+}
+
+/* Sidebar Right Styles */
+
+#right .block
+{
+	background:#ee006a;
+	margin-left:-20px;
+}
+
+#right label
+{
+	color:#ee006a;
+}
+
+#right .topBar ul li a
+{
+	color:#ee006a;
+}
+
+#right input.submit
+{
+	background:#ee006a;
+}
+
+#right input
+{
+	border:#ee006a solid 2px;
+	color:#ee006a;
+}
 
 /* HEADER STYLES */
 .topBar ul
@@ -189,14 +254,11 @@ p
 	text-decoration:none;
 }
 
-#right .topBar ul li a
+.block
 {
-	color:#ee006a;
-}
-
-#main .topBar ul li a
-{
-	color:#00a1ff;
+	height:5px;
+	width:100%;
+	padding:0 10px;
 }
 
 .topBar ul li a:hover
@@ -226,17 +288,6 @@ h3.header
 /* END HEADER STYLES */
 
 /* MAIN STYLES */
-
-img.homeImage
-{
-	float:right;
-}
-
-img.sideImage
-{
-	float:right;
-}
-
 h2.slogan
 {
 	color:#00a1ff;
@@ -252,19 +303,21 @@ h2.slogan
 	padding:0 7px;
 }
 
-img.main
+.newBars p
 {
-	position:relative;
-	margin-right:-25px;
+	font-size:12px;
+	margin:0;
+	padding:2px 5px;
 }
 
+.newBars:nth-child(2n)
+{
+	background:#2d2e2d;
+}
 /* END MAIN STYLES */
 
 /* FORM STYLES */
-label
-{
-	font-size:24px;
-}
+
 
 label.error
 {
@@ -291,46 +344,9 @@ input.error
 
 form.infield label
 {
-	font-size:24px;
 	position:absolute; 
 	top:2px; 
 	left:5px;
-}
-
-input
-{
-	font-size:24px;
-	height:32px;
-	width:286px;
-	background:#2d2e2d;
-}
-
-#sidebar input
-{
-	border:#3fee00 solid 2px;
-	color:#3fee00;
-}
-
-#main input
-{
-	border:#00a1ff solid 2px;
-	color:#00a1ff;
-}
-
-#right input
-{
-	border:#ee006a solid 2px;
-	color:#ee006a;
-}
-
-textarea
-{
-	border:#00a1ff solid 2px;
-	font-size:14px;
-	background:#2d2e2d;
-	height:32px;
-	height: 140px;
-	width:286px;
 }
 
 .formInfo
@@ -380,21 +396,6 @@ input.submit
 	font-size:24px;
 	height:34px;
 	width:180px;
-}
-
-#sidebar input.submit
-{
-	background:#3fee00;
-}
-
-#main input.submit
-{
-	background:#00a1ff;
-}
-
-#right input.submit
-{
-	background:#ee006a;
 }
 
 

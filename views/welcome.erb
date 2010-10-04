@@ -3,3 +3,13 @@
 
 <h3>Getting Involved</h3>
 <p>If your favorite bar isn't currently listed, tell them about it or shoot us an email at info@drinkr.com with the bar name and address and we'll do our best to get in contact with the bar.</p>
+
+<h3 class="margin">Newest Bars</h3>
+<% @bars.each do |bar| %>
+<div class="newBars">
+<p>
+	<a href="/show/<%= bar.id %>"><%= bar.name %></a><br />
+	<%= bar.city %>, <%= bar.state %> <%= bar.zip %><br />
+</p>
+</div>
+<% end %>
