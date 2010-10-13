@@ -3,10 +3,11 @@ class BarEvent
   
   property :id,          Serial
   property :bar_id,      Integer
-  property :title,       String
-  property :day_of_week, String
-  property :start_time,  String
-  property :end_time,    String
+  property :title,       String, :required => true
+  property :date,        Date
+  property :description, Text, :required => true
+  property :start_time,  String, :required => true
+  property :end_time,    String, :required => true
   
   belongs_to :bar
 end

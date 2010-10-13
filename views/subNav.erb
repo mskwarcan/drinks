@@ -1,7 +1,3 @@
-<div class="block"></div>
-<ul><li><a href="/account/<%= session[:user] %>">My Account</a></li><li><a href="/bar">My Bars</a></li><li><a href="/new">Create a Bar</a></li><li class="last"><a href="/logout">Log out</a></li></ul>
-</div>
-
 <div class="subnav">
 
 <% if @bar && !@new == true%>
@@ -10,7 +6,8 @@
 		<a href="/show/<%= @bar.id %>">View Bar</a><br />
 		<a href="/edit/<%= @bar.id %>">Edit Bar</a><br />
 		<a href="/details/<%= @bar.id %>">Edit Hours/Cover</a><br />
-		<a href="/special/<%= @bar.id %>">Edit a Special</a><br />
+		<a href="/special/<%= @bar.id %>">Edit Specials</a><br />
+		<a href="/events/<%= @bar.id %>">Add an Event</a><br />
 		<a href="javascript:confirmDelete('/delete/<%= @bar.id %>')">Delete Bar</a><br />
 	</p>
 <% end %>
@@ -21,6 +18,7 @@
 		<% @bars.each_with_index do |bar,i| %>
 			<a href="/show/<%= bar.id %>"><%=bar.name %></a><br />
 		<% end %>
+		<br /><a href="/new">Create a New Bar</a>
 	</p>
 <% end %>
 </div>

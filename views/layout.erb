@@ -5,7 +5,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><%= @title %></title>
 	<link href="../css/styles.css" rel="stylesheet" type="text/css" />
+	<link href="../css/jquery-ui-1.8.5.custom.css" rel="stylesheet" type="text/css" />
+	
 	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.infieldlabel.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.alerts.js"></script>
@@ -37,10 +40,15 @@
 	
 	<div id="right">
 		<div class="topBar">	
+		<div class="block"></div>
 		
 		<% if !logged_in? %>
+				<ul><li class="last"><a href="/">Login</a></li></ul>
+			</div>
 			<%= erb(:login, :layout => false) %>
 		<% else %>
+			<ul><li><a href="/account/<%= session[:user] %>">My Account</a></li><li><a href="/bar">My Bars</a></li><li class="last"><a href="/logout">Log out</a></li></ul>
+		</div>
 			<%= erb(:subNav, :layout => false) %>
 		<% end %>
 	</div>

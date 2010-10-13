@@ -4,7 +4,7 @@ body
 	padding:0;
 	font-family: Tahoma, Arial;
 	height: 100%;
-	background:#212221;
+	background:#131513 url('../images/body_bg.jpg') repeat-y center;
 }
 
 html
@@ -88,7 +88,6 @@ textarea
 /* STRUCTURE */
 #wrapper
 {
-	height:100%;
 	width:960px;
 	margin:0 auto;
 }
@@ -96,36 +95,12 @@ textarea
 .topBar
 {
 	height:50px;
-	background:#212221;
 	width:300px;
 	padding:0 0 10px 0;
 	margin-bottom:10px;
 }
 
-#sidebar
-{
-	width:300px;
-	float:left;
-	padding:0 20px 0 0;
-	color:#3fee00;
-}
 
-#main
-{
-	width:300px;
-	padding:0 10px;
-	min-height:400px;
-	float:left;
-	color:#00a1ff;
-}
-
-#right
-{
-	width:300px;
-	float:left;
-	padding:0 0 0 20px;
-	color:#ee006a;
-}
 
 #footer
 {
@@ -140,89 +115,147 @@ textarea
 /* END STRUCTURE */
 
 /* Sidebar Left Styles */
+#sidebar
+{
+	width:300px;
+	float:left;
+	padding:0 10px;
+	color:#8DDB29;
+}
+
+h1.header
+{
+	color:#8DDB29;
+	font-weight:normal;
+	margin:0;
+	padding:0;
+}
+
+h3.header
+{
+	color:#8DDB29;
+	font-weight:normal;
+	font-size:14px;
+	margin:0 0 15px 0;
+	padding:0;
+	position:relative;
+	top:-4px;
+}
 
 #sidebar .block
 {
-	background:#3fee00;
-}
-
-#sidebar .topBar
-{
-	margin-left:0px;
+	background:#8DDB29;
+	margin-left:-10px;
 }
 
 #sidebar label
 {
-	color:#3fee00;
+	color:#8DDB29;
 }
 
 #sidebar input.submit
 {
-	background:#3fee00;
+	background:#8DDB29;
 }
 
 #sidebar input
 {
-	border:#3fee00 solid 2px;
-	color:#3fee00;
+	border:#8DDB29 solid 2px;
+	color:#8DDB29;
 }
 
 /* Middle Column Styles */
+#main
+{
+	width:300px;
+	padding:0 10px;
+	min-height:400px;
+	float:left;
+	color:#4191E8;
+}
+
+h2.slogan
+{
+	color:#4191E8;
+	font-size:14px;
+}
+
+.highlight
+{
+	background:#4191E8;
+	color:#212221;
+	line-height:1.3;
+	font-size:22px;
+	padding:0 7px;
+}
 
 #main .block
 {
-	background:#00a1ff;
+	background:#4191E8;
 	margin-left:-10px;
 }
 
 #main label
 {
-	color:#00a1ff;
+	color:#4191E8;
 }
 
 #main .topBar ul li a
 {
-	color:#00a1ff;
+	color:#4191E8;
 }
 
 #main input.submit
 {
-	background:#00a1ff;
+	background:#4191E8;
 }
 
 #main input
 {
-	border:#00a1ff solid 2px;
-	color:#00a1ff;
+	border:#4191E8 solid 2px;
+	color:#4191E8;
 }
 
 /* Sidebar Right Styles */
 
+#right
+{
+	width:300px;
+	float:left;
+	padding:0 0 0 15px;
+	color:#9E31BA;
+}
+
 #right .block
 {
-	background:#ee006a;
-	margin-left:-20px;
+	background:#9E31BA;
+	margin-left:-15px;
 }
 
 #right label
 {
-	color:#ee006a;
+	color:#9E31BA;
 }
 
 #right .topBar ul li a
 {
-	color:#ee006a;
+	color:#9E31BA;
 }
 
 #right input.submit
 {
-	background:#ee006a;
+	background:#9E31BA;
 }
 
 #right input
 {
-	border:#ee006a solid 2px;
-	color:#ee006a;
+	border:#9E31BA solid 2px;
+	color:#9E31BA;
+}
+
+.pink
+{
+	color:#9E31BA;
 }
 
 /* HEADER STYLES */
@@ -266,43 +299,9 @@ textarea
 	color:#fff;
 }
 
-h1.header
-{
-	color:#3fee00;
-	font-weight:normal;
-	margin:0;
-	padding:0;
-}
-
-h3.header
-{
-	color:#3fee00;
-	font-weight:normal;
-	font-size:14px;
-	margin:0 0 15px 0;
-	padding:0;
-	position:relative;
-	top:-4px;
-}
-
 /* END HEADER STYLES */
 
 /* MAIN STYLES */
-h2.slogan
-{
-	color:#00a1ff;
-	font-size:14px;
-}
-
-.highlight
-{
-	background:#00a1ff;
-	color:#212221;
-	line-height:1.3;
-	font-size:22px;
-	padding:0 7px;
-}
-
 .newBars p
 {
 	font-size:12px;
@@ -365,6 +364,7 @@ p.zip
 	left:140px;
 	top:-52px;
 	margin-bottom:-55px;
+	width:146px;
 }
 
 form#bar p.zip
@@ -456,15 +456,21 @@ form p
 .searchBar p
 {
 	padding:0 10px;
-	margin:0 0 4px 0;
+	margin:5px 0 4px 0;
 	font-size:14px;
-	color:#3fee00;
+	color:#ee006a;
 }
 
 .searchBar .special
 {
 	margin:5px 0;
-	padding:3px 10px;
+	padding:3px 10px 6px;
+}
+
+.drink_price
+{
+	float:right;
+	font-size:24px;
 }
 
 .searchBar .special:nth-child(2n)
@@ -510,6 +516,13 @@ h2.distance
 .bar p
 {
 	margin:0;
+}
+
+.bar h3
+{
+	font-size:20px;
+	margin-right:10px;
+	width:150px;
 }
 
 p.noMargin

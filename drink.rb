@@ -272,11 +272,10 @@ end
 get '/events/:id' do
   @day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   @bar = Bar.get(params[:id])
-  @img = true
   
   if logged_in?
     if Bar.authenticate(@bar.id, session[:user])
-       erb :events
+       erb :event
     else
       session[:error] = "You don't not have permission to view this page."
       redirect "/bar"

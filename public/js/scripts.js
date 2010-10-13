@@ -43,6 +43,9 @@ $(document).ready(function(){
 		}
 	});
 
+	
+	$( "#date" ).datepicker();
+
 
   $('input.closed').change(function () {
     if ($(this).attr("checked")) {
