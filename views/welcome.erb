@@ -1,15 +1,18 @@
 <h2 class="slogan"><span class="highlight">Drinkr</span> helps you find the best <span class="highlight">bars,</span> cheapest <span class="highlight">drink specials,</span> and most popular <span class="highlight">events</span> in your area for <span class="highlight">free.</span></h2>
+<div class="bg">
 <p>All of the information on this site is maintained by participating bars in your area. So get the word out there and tell your favorite bars to put their bar on Drinkr!</p>
 
 <h3>Getting Involved</h3>
 <p>If your favorite bar isn't currently listed, tell them about it or shoot us an email at info@drinkr.com with the bar name and address and we'll do our best to get in contact with the bar.</p>
-
-<h3 class="margin">Newest Bars</h3>
+</div>
+<h2 class="newBars">Newest Bars</h2>
 <% @bars.each do |bar| %>
 <div class="newBars">
+	<hr class="mainBar"/>
 <p>
 	<a href="/show/<%= bar.id %>"><%= bar.name %></a><br />
 	<%= bar.city %>, <%= bar.state %> <%= bar.zip %><br />
 </p>
 </div>
 <% end %>
+<hr class="mainBar"/>
