@@ -1,26 +1,27 @@
 <h2>Add an Event</h2>
-<form action="/newEvent" method="post" id="event">
+<form action="/events/<%= @bar.id %>" method="post" class="valid" id="event">
 	<p>
 	<label for="title">Event Name:</label><br />
-	<input type="text" name="event[title]" id="title" />
+	<input type="text" name="event[title]" class="required" id="title" />
 	</p>
 	<p>
 	<label for="date">Date:</label><br />
-	<input type="text" name="event[date]" id="date" />
+	<input type="text" readonly="readonly" class="required" name="event[date]" id="date" />
+	<input type="hidden" name="event[bar_id]" value="<%= @bar.id %>">
 	</p>
 	<p>
 	<label for="description">Event Description:</label><br />
-	<textarea name="event[description]" id="description"></textarea>
+	<textarea name="event[description]" class="required" id="description"></textarea>
 	</p>
 	<p>
 	<label for="start">Start Time:</label><br />
-	<input type="text" name="event[startTime]" id="start" />
+	<input type="text" name="event[start_time]" class="required" id="start" />
 	<span class="formInfo">Example: 7PM, 9:30 A.M., Noon, Midnight</span>
 	</p>
 	<p>
 	<p>
 	<label for="end">End Time:</label><br />
-	<input type="text" name="event[endTime]" id="end" />
+	<input type="text" name="event[end_time]" class="required" id="end" />
 	<span class="formInfo">Example: 7PM, 9:30 A.M., Noon, Midnight</span>
 	</p>
 	<p>
@@ -28,10 +29,3 @@
 	<input type="submit" class="submit" value="Add Event" />
 	</p>
 </form>
-
-<h3>Current Events</h3>
-<ul>
-	<% for event in Event.all() do %>
-		<li><%= event.title %> <a href="/deleteEvent/<%= event.id %>">Delete</a></li>
-	<% end %>
-</ul>

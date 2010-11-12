@@ -24,7 +24,7 @@
 	<div id="sidebar">
 		<div class="topBar">
 			<div class="block"></div>
-			<a href="/"><h1 class="header">Drinkr</h1><h3 class="header">Share your bar with the world.</h3></a>
+			<a class="header" href="/"><h1 class="header">Drinkr</h1><h3 class="header">Share your bar with the world.</h3></a>
 		</div>
 			<%= erb(:search, :layout => false) %>
 	</div>
@@ -33,6 +33,7 @@
 	<div class="topBar"><div class="block"></div>
 	<ul><li><a href="/">Home</a></li><li><a href="/about">About Drinkr</a></li><li><a href="/faq">FAQs</a></li><li class="last"><a href="/contact">Contact</a></li></ul>
 	</div>
+	<%= show_flash %>
 		<%= yield %>
 	</div>
 	
@@ -43,16 +44,38 @@
 		<% if !logged_in? %>
 				<ul><li class="last"><a href="/">Login</a></li></ul>
 			</div>
-			<%= erb(:login, :layout => false) %>
+			<% if !@today %>
+				<%= erb(:login, :layout => false) %>
+			<% else %>
+				<%= erb(:specials, :layout => false) %>
+			<% end %>
 		<% else %>
 			<ul><li><a href="/account/<%= session[:user] %>">My Account</a></li><li><a href="/bar">My Bars</a></li><li class="last"><a href="/logout">Log out</a></li></ul>
 		</div>
-			<%= erb(:subNav, :layout => false) %>
+			<% if !@today %>
+				<%= erb(:subNav, :layout => false) %>
+			<% else %>
+				<%= erb(:specials, :layout => false) %>
+			<% end %>
 		<% end %>
 	</div>
 
 	<div id="footer">
+		
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17553613-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </html>

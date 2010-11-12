@@ -1,0 +1,93 @@
+<h3 class="today"><%= @today %> Specials</h3>
+<div class="searchBar">
+	<% if !@beer.empty? %>
+		<p>Beer</p>
+		<div class="bg">
+		<% @beer.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					<span class="drink_price">$<%= special.price %></span> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+		</div>
+	<% end %>
+	<% if !@pitcher.empty? %>
+		<p><b>Pitchers</b></p>
+		<div class="bg">
+		<% @pitcher.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					<span class="drink_price">$<%= special.price %></span> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+		</div>
+	<% end %>
+	<% if !@mixed.empty? %>
+		<p>Mixed Drinks</p>
+		<div class="bg">
+		<% @mixed.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					<span class="drink_price">$<%= special.price %></span> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+		</div>
+	<% end %>
+	<% if !@shot.empty? %>
+		<p>Shots</p>
+		<div class="bg">
+		<% @shot.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					<span class="drink_price">$<%= special.price %></span> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+		</div>
+	<% end %>
+	<% if !@wine.empty? %>
+		<p>Wine</p>
+		<div class="bg">
+		<% @wine.each do |special| %>
+				<% bar = Bar.first(:id => special.bar_id)%>
+				<div class="special">
+					<span class="drink_price">$<%= special.price %></span> <%= special.drink_name %><br />
+					&#64;<a href="/show/<%= special.bar_id %>"><%= bar.name %></a><br />
+				</div>
+		<% end %>
+		</div>
+	<% end %>
+	
+	<% if @wine.empty? && @beer.empty? && @mixed.empty? && @shot.empty? && @pitcher.empty?  %>
+	<div class="bg">
+		<p class="grey">There are no specials today for the bars listed.</p>
+	</div>
+	<% end %>
+</div>
+	<% bar_events = [] %>
+	
+	<% @bars.each do |bar|
+		bar_event = BarEvent.all(:bar_id => bar[:bar].id)
+		bar_event.each do |event|
+			if(event.date >= DateTime.now)
+				bar_events << event
+			end
+		end
+	end%>
+		<h3>Upcoming Events</h3>
+	<% if !bar_events.empty? %>
+
+		<% bar_events.each do |event| %>
+			<div class="bg events"><span class="eventTitle"><%= event.title %></span><br />
+			<% bar = Bar.first(:id => event.bar_id) %>
+			<span class="place"><%= event.start_time %> - <%= event.end_time %> <%= event.date.strftime('%A %B %d, %Y') %><br /> @<a href="/show/<%= event.bar_id %>"><%= bar.name %></a></span><br /> <%= event.description %><br /><a href="/deleteEvent/<%= event.id %>">Delete</a> </div>
+		<% end %>
+		</ul>
+	<% else %>
+		<div class="bg">
+			<p class="grey">There are no upcoming events for the bars listed.</p>
+		</div>
+	<% end %>

@@ -1,40 +1,57 @@
 <h2><%= @bar.name %> Drink Specials</h2>
 
-<form action="/addSpecial/<%= @bar.id %>" class="valid" method="post" id="bar">
-	<table id="specials">
-		<tr>
-			<th>Day of Week</th><th>Type</th><th>Drink Name</th><th>Price</th>
-		</tr>
-		<tr>
-			<td><select name="special[][day_of_week]">
-				<% @day.each do |weekday| %>
-					<option value="<%= weekday %>"><%= weekday %></option>
-				<% end %>
-				</select>
-			</td>
-			<td><select name="special[][type]">
-				<option value="Beer">Beer</option>
-				<option value="Pitcher">Pitcher</option>
-				<option value="Mixed">Mixed Drink</option>
-				<option value="Shot">Shot</option>
-				<option value="Wine">Wine</option>
-				</select>
-			</td>
-			<td>
-				<input type="text" class="drink" class="required" name="special[][drink_name]" />
-				<input type="hidden" name="special[][bar_id]" value="<%= @bar.id %>">
-			</td>
-			<td class="price">
-			$<input type="text" class="price" class="required" name="special[][price]" />
-			</td>
-		</tr>
+<form action="/addSpecial/<%= @bar.id %>" class="valid special" method="post" id="bar">
+<table>
+	<tr>
+	<td class="right">
+	<label>Weekday:</label>
+	</td>
+	<td>
+		<select class="specialmenu" name="special[][day_of_week]">
+			<% @day.each do |weekday| %>
+				<option value="<%= weekday %>"><%= weekday %></option>
+			<% end %>
+		</select>
+	</td>
+	</tr>
+	<tr>
+	<td class="right">
+	<label>Drink Type:</label>
+	</td>
+	<td>
+	<select class="specialmenu" name="special[][type]">
+		<option value="Beer">Beer</option>
+		<option value="Pitcher">Pitcher</option>
+		<option value="Mixed">Mixed Drink</option>
+		<option value="Shot">Shot</option>
+		<option value="Wine">Wine</option>
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td class="right">
+	<label for="drink_name">Drink Name:</label>
+	</td>
+	<td>
+	<input type="text" class="drink" class="required" name="special[][drink_name]" />
+	<input type="hidden" name="special[][bar_id]" value="<%= @bar.id %>">
+	</td>
+	</tr>
+	<tr>
+	<td class="right">
+	<label for="price">Price: $ </label>
+	</td>
+	<td>
+	<input type="text" class="required" name="special[][price]" />
+	</td>
+	</tr>
 	</table>
 	<p>
-	<input type="submit" class="submit" value="Submit" />
+	<input type="submit" class="submit" value="Add Special" />
 	</p>
 </form>
 
-<h3>Current Specials</h3>
+<h3 class="margin">Current Specials</h3>
 <% special = Special.all(:bar_id => @bar.id) %>
 
 <% if special.empty? %>
@@ -42,9 +59,10 @@
 <% else %>
 	<% @day.each do |weekday| %>
 			<ul class='specials'>
+		<span class="day"><%= weekday %></span>
 		<% special.each do |drink| %>
 			<% if weekday == drink.day_of_week %>
-				<li><b><%= drink.day_of_week %></b> <%= drink.type %> - $<%= drink.price %> <%= drink.drink_name %> <a href="/deleteSpecial/<%= drink.id %>">Delete</a></li>
+				<li><%= drink.type %> - $<%= drink.price %> <%= drink.drink_name %> <a href="/deleteSpecial/<%= drink.id %>">Delete</a></li>
 			<% end %>
 		<% end %>
 		<% if Special.all(:day_of_week => weekday, :bar_id => @bar.id).empty? %>

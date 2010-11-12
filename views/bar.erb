@@ -1,9 +1,11 @@
 <% if @bars.empty? %>
-	<p>Create your bar <a href="/new">here.</a></p>
+<div class="bg">
+	<p>Get started by creating your first bar <a href="/new">here.</a> After creating a bar, please fill in the hours, cover, drink specials, and any upcoming events you may have coming up.</p>
+</div>
 <% else %>
 <div class="results">
 	<% @bars.each_with_index do |bar,i| %>
-		<div class="bar">
+		<div class="bar mybar">
 			<p class="noMargin links">
 				<a href="/edit/<%= bar.id %>">Edit Bar</a><br />
 				<a href="/details/<%= bar.id %>">Edit Hours/Cover</a><br />

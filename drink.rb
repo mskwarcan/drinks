@@ -43,7 +43,7 @@ end
 post '/contact' do
   @contact_form = ContactForm.new(params[:contact])
   if @contact_form.valid?
-    #@contact_form.send_email('Drinkr Contact Form')
+    @contact_form.send_email('Drinkr Contact Form')
     @contact_form.clear
     erb :contact
   else
@@ -287,29 +287,21 @@ get '/events/:id' do
 end
 
 post '/events/:id' do 
-  @bar = Bar.get(params[:id])
+  bar = Bar.get(params[:id])
   
   if logged_in?
-    if Bar.authenticate(@bar.id, session[:user])
+    if Bar.authenticate(bar.id, session[:user])
       
-      params[:event].each do |events|
-        if !events.empty?
-          evt = BarEvent.new(events)
-          if BarEvent.first(:bar_id => @bar.id, :title => evt.title).update(evt.attributes)
-              session[:flash] = 'Details Updated'
-          else
-            if evt.save
-              redirect "/show/#{@bar.id}"
-            else
-              tmp = []
-              evt.errors.each do |e|
-                tmp << "#{e}. <br/>"
-              end
-              session[:error] = tmp
-              redirect("/events/#{@bar.id}")
-            end
-          end
+      event = BarEvent.new(params[:event])
+      if event.save
+        redirect "/events/#{bar.id}"
+      else
+        tmp = []
+        event.errors.each do |e|
+          tmp << "#{e}. <br/>"
         end
+        session[:error] = tmp
+        erb :event
       end
     else
       session[:error] = "You don't not have permission to view this page."
@@ -319,6 +311,14 @@ post '/events/:id' do
     session[:error] = "You must log in to view this page."
     redirect "/"
   end
+end
+
+get '/deleteBarEvent/:id' do
+  event = BarEvent.get(params[:id])
+    unless event.nil?
+      event.destroy
+    end
+    redirect('/bar')
 end
 
 ############################End Bar Events
@@ -428,20 +428,20 @@ get '/editAccount/:id' do
 end
 
 post '/editAccount/:id' do
-  @user = Person.get(params[:id])
+  user = Person.get(params[:id])
 
   if logged_in?
-    if (@user.id == session[:user])
-      @update = Person.new(params[:person])
-      if Person.get(params[:id]).update(@update.attributes)
-        redirect "/account/#{@user.id}"
+    if (user.id == session[:user])
+      update = Person.new(params[:person])
+      if Person.get(params[:id]).update(update.attributes)
+        redirect "/account/#{user.id}"
       else
         tmp = []
-        @update.errors.each do |e|
+        update.errors.each do |e|
           tmp << "#{e}. <br/>"
         end
         session[:error] = tmp
-        redirect("/editAccount/#{@user.id}")
+        redirect("/editAccount/#{user.id}")
       end
     else
       session[:error] = "You don't not have permission to view this page."

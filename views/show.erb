@@ -1,18 +1,20 @@
+<div class="bg">
 <h3><%= @bar.name %></h3>
-<p class="noMargin info left">
+<p class="noMargin">
 	<%= @bar.address %><br />
 	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %><br />
 	<%= @bar.phone %><br />
-	<% if @bar.url %>
-		Website: <a href="http://<%= @bar.url %>"><%= @bar.name %></a>
+	<% if !@bar.url.empty? %>
+		Website: <a href="<%= @bar.url %>"><%= @bar.name %></a>
 	<% end %>
 </p>
-	<p class="description noMargin">
+	<p>
 	<%= @bar.description %>
 	</p>
+</div>
 
 	<% if @days.empty? %>
-	<p class="noMargin clear">
+	<p>
 		<br />
 		<b>Hours of Operation:</b><br />
 		This bar has yet to make their hours available.<br />
@@ -21,20 +23,22 @@
 		<% end %>
 	</p>
 	<% else %>
-	<table class="hours" width="530px" cellspacing="0" cellpadding="3">
+	<table class="hours" width="310" cellspacing="0" cellpadding="5">
 		<tr>
-			<th>Day of Week</th><th>Hours</th><th>Specials</th><th>Cover</th>
+			<th>Day of Week</th><th>Hours</th><% if !@specials.empty? %><th>Specials</th><% end %><th>Cover</th>
 		</tr>
 		<% @days.each_with_index do |day,i| %>
 		<tr>
 			<td><%= day.day_of_week %></td>
 			<td><% if day.open == 'Closed' %>Closed<% else %> <%=day.open %> - <%=day.close %><% end %></td>
+			<% if !@specials.empty? %>
 			<td><% @specials.each do |special| %>
 					<% if special.day_of_week == day.day_of_week %>
-						<%= special.type %> - <%=special.drink_name %> $<%=special.price %><br />
+						<%= special.type %> - $<%=special.price %> <%=special.drink_name %> <br />
 					<% end %>
 				<% end %></td>
-			<td><% if !day.cover.to_s.empty? %><b>Cover: $<%=day.cover %></b><% end %> </td>
+			<% end %>
+			<td><% if !day.cover.to_s.empty? %><b>$<%=day.cover %></b><% end %> </td>
 		</tr>
 		<% end %>
 		</table>
@@ -50,12 +54,13 @@
 	</p>
 	<% else %>
 		<% if @days.empty? %>
-		<p><b>Drink Specials:</b><br /></p>
+		<h3 class="margin">Drink Specials</h3>
 		<% @day.each do |weekday| %>
+		<span class="day"><%= weekday %></span>
 				<ul class='specials'>
 			<% @specials.each do |drink| %>
 				<% if weekday == drink.day_of_week %>
-					<li><b><%= drink.day_of_week %></b> <%= drink.type %> - $<%= drink.price %> <%= drink.drink_name %></li>
+					<li><%= drink.type %> - $<%= drink.price %> <%= drink.drink_name %></li>
 				<% end %>
 			<% end %>
 				</ul>

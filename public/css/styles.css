@@ -14,11 +14,10 @@ html
 
 h2
 {
-	font-size:26px;
 	font-weight:normal;
-	margin:0 0 3px 0;
+	margin:0;
 	padding:0;
-	line-height:.7;
+	line-height:.9;
 }
 
 h3
@@ -40,6 +39,17 @@ h3.margin
 	margin:0 0 5px 0;
 }
 
+h3.today
+{
+	font-size:22px;
+	border-bottom:1px solid #2d2630;
+	padding-bottom:5px;
+	position:relative;
+	left:-15px;
+	padding-left:15px;
+	width:300px;
+}
+
 h3 a
 {
 	text-decoration:none;
@@ -54,12 +64,20 @@ h3 a:hover
 a
 {
 	color:#347ba8;
+	outline:none;
 }
 
 p
 {
 	font-size:13px;
 	color:#4e4e4e;
+}
+
+p.grey
+{
+	font-size:13px !important;
+	color:#4e4e4e !important;
+	margin:10px 0 !important;
 }
 
 .bg
@@ -72,7 +90,7 @@ p
 
 label
 {
-	font-size:24px;
+	font-size:18px;
 }
 
 input
@@ -85,13 +103,12 @@ input
 
 textarea
 {
-	border:#00a1ff solid 2px;
 	font-size:14px;
-	background:#2d2e2d;
-	height:32px;
+	background:#0E0F0E;
 	height: 140px;
 	width:286px;
 	color:#646363;
+	font-family:Arial;
 }
 
 .clear
@@ -113,8 +130,6 @@ textarea
 	margin-bottom:10px;
 }
 
-
-
 #footer
 {
 	margin-top:20px;
@@ -134,6 +149,11 @@ textarea
 	float:left;
 	padding:0 10px;
 	color:#86c02f;
+}
+
+a.header
+{
+	text-decoration:none;
 }
 
 h1.header
@@ -195,6 +215,11 @@ h3.header
 	color:#386482;
 }
 
+.main
+{
+	color:#386482;
+}
+
 h2.slogan
 {
 	color:#3a7ba7;
@@ -215,13 +240,13 @@ h2.slogan
 #main .block
 {
 	background:#4191E8;
-	margin-left:-8px;
+	margin-left:-7px;
 }
 
 #main .bg
 {
-	width:296px;
-	left:-8px;
+	width:295px;
+	left:-7px;
 	border-top:1px solid #0f1214;
 	border-bottom:1px solid #252d33;
 }
@@ -238,24 +263,42 @@ h2.slogan
 
 #main input.submit
 {
-	background:#386482;
+	background:#191919;
+	color:#4191E8;
+	border-top:1px solid #212221;
+	border-bottom:1px solid #000;
+	border-right:1px solid #000;
+	border-left:1px solid #212221;
 }
 
 #main input
 {
-	border:#386482 solid 2px;
-	color:#386482;
+	border-top:1px solid #000;
+	border-bottom:1px solid #21292f;
+	border-right:1px solid #21292f;
+	border-left:1px solid #000;
+	color:#4191E8;
+}
+
+#main textarea
+{
+	border-top:1px solid #000;
+	border-bottom:1px solid #21292f;
+	border-right:1px solid #21292f;
+	border-left:1px solid #000;
 }
 
 hr.mainBar
 {
-	width:316px;
+	width:315px;
 	position:relative;
-	left:-8px;
+	left:-7px;
 	border-top:1px solid #0f1214;
 	border-bottom:1px solid #252d33;
 	color:transparent;
 	margin:0;
+	border-left:none;
+	border-right:none;
 }
 
 h2.newBars
@@ -273,6 +316,16 @@ h2.newBars
 .newBars a
 {
 	font-size:14px;
+}
+
+.specialmenu
+{
+	border-top:1px solid #000;
+	border-bottom:1px solid #21292f;
+	border-right:1px solid #21292f;
+	border-left:1px solid #000;
+	background:#191919;
+	color:#4191E8;
 }
 
 /* Sidebar Right Styles */
@@ -314,8 +367,8 @@ h2.newBars
 #right input
 {
 	border-top:1px solid #000;
-	border-bottom:1px solid #362d3a;
-	border-right:1px solid #362d3a;
+	border-bottom:1px solid #2d2630;
+	border-right:1px solid #2d2630;
 	border-left:1px solid #000;
 	color:#9a48b5;
 }
@@ -325,11 +378,19 @@ h2.newBars
 	width:299px;
 	left:-16px;
 	border-top:1px solid #130f14;
-	border-bottom:1px solid #2f2533;
+	border-bottom:1px solid #28212b;
 }
 
 .pink
 {
+	color:#673f75;
+}
+
+.searchBar p
+{
+	padding:0 10px;
+	margin:5px 0 4px 0;
+	font-size:16px;
 	color:#673f75;
 }
 
@@ -346,7 +407,7 @@ h2.newBars
 	list-style-type:none;
 	float:left;
 	font-size:14px;
-	margin:5px 22px 0 0px;
+	margin:5px 30px 0 0px;
 }
 
 .topBar ul li.last
@@ -358,7 +419,6 @@ h2.newBars
 
 .topBar ul li a
 {
-	font-weight:bold;
 	text-decoration:none;
 }
 
@@ -381,19 +441,15 @@ h2.newBars
 
 label.error
 {
-	background:#ff7171;
-	color:#011815;
+	background:#410B0B;
+	color:#fff !important;
 	font-size:12px;
 	position:absolute;
-	top:55px;
-	left:0px;
-	padding:6px 10px;
+	right:13px;
+	padding:8px 10px;
 	z-index:1;
-}
-
-#bar label.error
-{
-	top:67px;
+	top:24px;
+	border:1px solid #591010;
 }
 
 input.error
@@ -405,8 +461,9 @@ input.error
 form.infield label
 {
 	position:absolute; 
-	top:2px; 
+	top:4px; 
 	left:5px;
+	font-size:20px;
 }
 
 .formInfo
@@ -423,7 +480,7 @@ input.state
 p.zip
 {
 	left:140px;
-	top:-52px;
+	top:-49px;
 	margin-bottom:-55px;
 	width:146px;
 }
@@ -438,16 +495,6 @@ form#bar p.zip
 input.zip
 {
 	width:146px;
-}
-
-label.web
-{
-	color:#646363;
-}
-
-input.web
-{
-	width:237px;
 }
 
 input.submit
@@ -509,21 +556,7 @@ form p
 .searchBar
 {
 	font-size:12px;
-	color:#646363;
-}
-
-.searchBar p
-{
-	padding:0 10px;
-	margin:5px 0 4px 0;
-	font-size:14px;
-	color:#ee006a;
-}
-
-.searchBar .special
-{
-	margin:5px 0;
-	padding:3px 10px 6px;
+	color:#4E4E4E;
 }
 
 .drink_price
@@ -532,9 +565,14 @@ form p
 	font-size:24px;
 }
 
-.searchBar .special:nth-child(2n)
+.searchBar .special
 {
-	background:#2d2e2d;
+	border-top:1px solid #28212b;
+	border-bottom:1px solid #130f14;
+	position:relative;
+	left:-8px;
+	width:287px;
+	padding:3px 15px 6px;
 }
 
 h2.distance
@@ -551,14 +589,16 @@ h2.distance
 	left:-8px;
 	width:296px;
 	padding:0px 10px 10px;
+}
+.results .mybar
+{
 	height:80px;
 }
 
-.results .bar:nth-child(2n) {
+.results .bar {
   	background:url('../images/p_bg.png');
 	border-top:1px solid #0f1214;
 	border-bottom:1px solid #252d33;
-	margin:10px 0;
 	padding:10px 10px 20px;
 }
 
@@ -573,6 +613,60 @@ h2.distance
 {
 	float:left;
 	font-size:12px;
+}
+
+.subnav ul
+{
+	padding:0;
+}
+
+.subnav ul li
+{
+	margin:0;
+	padding:0;
+	width:319px;
+	left:-16px;
+	border-top:1px solid #130f14;
+	border-bottom:1px solid #28212b;
+	list-style:none;
+	background:url('../images/p_bg.png');
+	position:relative;
+}
+
+.subnav ul li.create
+{
+	margin-top:15px;
+}
+
+.subnav ul li:hover
+{
+	background:none;
+	border-top:1px solid #28212b;
+	border-bottom:1px solid #130f14;
+}
+
+.subnav ul.events li a:hover
+{
+	text-decoration:underline;
+}
+
+.subnav ul.events li:hover
+{
+	background:url('../images/p_bg.png');
+	border-top:1px solid #130f14;
+	border-bottom:1px solid #28212b;
+}
+
+.subnav a
+{
+	text-decoration:none;
+	font-size:13px;
+}
+
+.menuLink
+{
+	width:259px;
+	padding:5px 20px;
 }
 
 .subnav h3
@@ -597,11 +691,6 @@ p.noMargin
 	margin:0;
 }
 
-p.info
-{
-	margin-right:40px;
-}
-
 .links
 {
 	float:right;
@@ -618,14 +707,13 @@ p.info
 }
 
 table.hours tr:nth-child(2n) {
-  background-color: #2d2e2d;
+  	background:url('../images/p_bg.png');
 }
 
 table.hours
 {
-	color:#011815;
-	font-size:14px;
-	margin-top:30px;
+	font-size:12px;
+	margin-top:5px;
 }
 
 table.hours th
@@ -645,21 +733,20 @@ table.hours td
 
 table#details
 {
-	width:375px;
-	color:#E1D9C2;
+	position:relative;
+	left:-8px;
 	margin:7px 0;
 	font-size:14px;
 }
 
 table th
 {
-	color:#646363;
 	font-size:14px;
 }
 
 table#details input
 {
-	width:60px;
+	width:55px;
 	font-size:20px;
 	height:24px;
 	font-size:14px;
@@ -675,14 +762,20 @@ form.details p
 	margin:0;
 }
 
+form.details .bg p
+{
+	margin:5px 0;
+}
+
+
 form.details h3
 {
 	margin-top:10px;
 }
 
-td.price
+td.price label
 {
-	width:75px;
+	font-size:20px;
 }
 
 p.event
@@ -695,46 +788,103 @@ p.event input
 	width:auto;
 }
 
+.dollar
+{
+	float:left;
+	font-size:14px;
+	color:#386482;
+	padding:3px 1px 0 0;
+}
+
+td.price input.cover
+{
+	width:37px !important;
+}
+
+td.price label
+{
+	left:10px;
+	top:4px;
+	font-size:14px;
+}
 
 /* END DETAILS PAGE */
 
+/* EVENTS */
+.events
+{
+	font-size:13px;
+	padding:5px 16px;
+}
+
+.eventTitle
+{
+	font-size:16px;
+}
+
+.place
+{
+	color:#4E4E4E;
+}
+
+.events .time, 
+{
+	font-size:14px;
+	float:right;
+}
+
 /* SPECIALS PAGE */
 
-table#specials
+form.special table
 {
-	margin-top:20px;
+	margin-top:15px;
 }
 
-table#specials td
+form.special table td.right
 {
-	padding:0 20px 0 0;
+	text-align:right;
 }
 
-table#specials td.price
+form.special label
 {
-	padding:0;
+	font-size:14px;
 }
 
-table#specials input.drink
+form.special input
 {
-	width:190px;
+	width:200px;
+	font-size:12px;
+	height:18px;
 }
 
-table#specials input.price
+form.special input.submit
 {
-	width:70px;
+	font-size:18px;
+	height:28px;
+	width:140px;
 }
 
 ul.specials
 {
 	list-style-type:none;
-	padding:0;
-	margin:7px;
+	background:url('../images/p_bg.png');
+	position:relative;
+	padding:5px 10px;
+	margin:0;
+	width:295px;
+	left:-7px;
+	border-top:1px solid #0f1214;
+	border-bottom:1px solid #252d33;
 }
 
 ul.specials li
 {
 	color:#646363;
+	font-size:14px;
+}
+
+.day
+{
 	font-size:14px;
 }
 

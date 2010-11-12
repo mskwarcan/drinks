@@ -2,23 +2,51 @@
 
 <% if @bar && !@new == true%>
 <h3><%= @bar.name %></h3>
-	<p>
-		<a href="/show/<%= @bar.id %>">View Bar</a><br />
-		<a href="/edit/<%= @bar.id %>">Edit Bar</a><br />
-		<a href="/details/<%= @bar.id %>">Edit Hours/Cover</a><br />
-		<a href="/special/<%= @bar.id %>">Edit Specials</a><br />
-		<a href="/events/<%= @bar.id %>">Add an Event</a><br />
-		<a href="javascript:confirmDelete('/delete/<%= @bar.id %>')">Delete Bar</a><br />
-	</p>
+	<ul>
+		<li><a href="/show/<%= @bar.id %>"><div class="menuLink">View <%= @bar.name %></div></a></li>
+		<li><a href="/edit/<%= @bar.id %>"><div class="menuLink">Edit <%= @bar.name %></div></a></li>
+		<li><a href="/details/<%= @bar.id %>"><div class="menuLink">Edit <%= @bar.name %>'s Hours/Cover</div></a></li>
+		<li><a href="/special/<%= @bar.id %>"><div class="menuLink">Edit <%= @bar.name %>'s Specials</div></a></li>
+		<li><a href="/events/<%= @bar.id %>"><div class="menuLink">Add an Event to <%= @bar.name %></div></a></li>
+		<li><a href="javascript:confirmDelete('/delete/<%= @bar.id %>')"><div class="menuLink">Delete <%= @bar.name %></div></a></li>
+	</ul>
 <% end %>
- <% @bars = Bar.all(:order => [:name.asc], :person_id => session[:user]) %>
-<% if !@bars.empty? %>
+ <% bars = Bar.all(:order => [:name.asc], :person_id => session[:user]) %>
+<% if !bars.empty? %>
 <h3>My Bars</h3>
-	<p>
-		<% @bars.each_with_index do |bar,i| %>
-			<a href="/show/<%= bar.id %>"><%=bar.name %></a><br />
+	<ul>
+		<li><a href="/bar"><div class="menuLink">View All Bars</div></a></li>
+		<% bars.each do |bar| %>
+			<li><a href="/show/<%= bar.id %>"><div class="menuLink"><%=bar.name %></div></a></li>
 		<% end %>
-		<br /><a href="/new">Create a New Bar</a>
-	</p>
+		<li class="create"><a href="/new"><div class="menuLink">Create a New Bar</div></a></li>
+	</ul>
+<% else %>
+	<h3>My Bars</h3>
+		<ul>
+			<li class="create"><a href="/new"><div class="menuLink">Create a New Bar</div></a></li>
+		</ul>
 <% end %>
+
+<% bar_event = BarEvent.all(:order => [ :date.asc ], :bar => [{:person_id => session[:user]}]) %>
+<% bar_events = [] %> 
+<% bar_event.each do |event|
+	if(event.date >= DateTime.now)
+		bar_events << event
+	end
+end %>
+
+<% if !bar_events.empty? %>
+	<h3>My Upcoming Events</h3>
+	<ul class="events">
+	<% bar_events.each do |event| %>
+		<% if(event.date >= DateTime.now) %>
+		<li><div class="menuLink"><span class="eventTitle"><%= event.title %></span><br />
+		<% bar = Bar.first(:id => event.bar_id) %>
+		<span class="place"><%= event.start_time %> - <%= event.end_time %> <%= event.date.strftime('%A %B %d, %Y') %><br /> @<a href="/show/<%= event.bar_id %>"><%= bar.name %></a></span><br /> <%= event.description %><br /><a href="javascript:confirmDelete('/deleteBarEvent/<%= event.id %>')">Delete</a> </div> </li>
+		<% end %>
+	<% end %>
+	</ul>
+<% end %>
+
 </div>

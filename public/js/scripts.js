@@ -62,15 +62,6 @@ $(document).ready(function(){
 	  $(this).parent('td').siblings('td.cover').children('input').attr('disabled', false);
   });
 
-  $('input.cover').change(function () {
-    if ($(this).attr("checked")) {
-		$(this).parent('td').siblings('td.price').children('p').show()
-		return;
-    }
-	  $(this).parent('td').siblings('td.price').children('p').children('input').attr('disabled', false);
-      $(this).parent('td').siblings('td.price').children('p').hide();
-  });
-
 });
 
 function confirmDelete(url) {

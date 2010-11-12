@@ -24,7 +24,7 @@ class Bar
   
   has n, :clicks
   has n, :days, :child_key => [:bar_id]
-  has n, :bar_events, :child_key => [:bar_id]
+  has n, :bar_events, 'BarEvent', :parent_key => [ :id ], :child_key => [:bar_id]
   has n, :specials,:child_key  => [:bar_id]
 
   def self.authenticate(id, user)

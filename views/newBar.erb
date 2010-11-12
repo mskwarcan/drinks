@@ -34,9 +34,10 @@
 	</p>
 	<p>
 	<label for="url">Website: (optional)</label><br />
-	<label class="web">http://</label><input type="text" class="web" name="bar[url]" id="url" value="<%= @bar.url %>" />
+	<input type="text" class="url" name="bar[url]" id="url" value="<%= @bar.url %>" /><br />
+	<span class="formInfo">Must begin with http://</span>
 	</p>
 	<p>
-	<input type="submit" class="submit" value="Submit" />
+	<input type="submit" class="submit" value="Create Bar" />
 	</p>
 </form>

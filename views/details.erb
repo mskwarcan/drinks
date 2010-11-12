@@ -1,11 +1,14 @@
 <h2><%= @bar.name %> Hours</h2>
 
 <form action="/addDetails/<%= @bar.id %>" class="infield details" method="post" id="bar">
+<div class="bg">
 	<h3>Hours</h3>
-	<p>Remember to include A.M./P.M.</p>
+	<p>Remember to include A.M./P.M.<br />
+	   Leave Cover blank if no cover.</p>
+</div>
 	<table id="details">
 		<tr>
-			<th>Day of Week</th><th>Open</th><th>Close</th><th>Closed</th><th>Cover?</th><th></th>
+			<th>Weekday</th><th>Open</th><th>Close</th><th>Closed</th><th>Cover?</th>
 		</tr>
 		<% @day.each do |weekday, i| %>
 		<% day = Day.first(:bar_id => @bar.id, :day_of_week => weekday) %>
@@ -27,20 +30,11 @@
 			<td>
 				<input name="days[][closed]" class="closed box" type="checkbox" <% if day.open == 'Closed' %>checked <% end %> value="Closed" />
 			</td>
-			<td class="cover">
-				<input type="checkbox" class="cover box" name="coverCheck" <% if !day.cover.to_s.empty? %>checked<% end %>  /></td>
 			<td class="price">
-				<% if !day.cover.to_s.empty? %>
 				<p>
 				<label for="cover<%= weekday %>">Price</label>
-				<input type="text" id="cover<%= weekday %>" name="days[][cover]" value="<%= day.cover %>" />
+				<span class="dollar">$</span><input type="text" value="<%= day.cover %>" class="cover" id="cover<%= weekday %>" name="days[][cover]" value="" />
 				</p>
-				<% else %>
-				<p style="display:none;">
-				<label for="cover<%= weekday %>">Price</label>
-				<input type="text" id="cover<%= weekday %>" name="days[][cover]" value="" />
-				</p>
-				<% end %>
 			</td>
 		</tr>
 		<% end %>
