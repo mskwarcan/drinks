@@ -4,6 +4,7 @@
 	<%= @bar.address %><br />
 	<%= @bar.city %>, <%= @bar.state %> <%= @bar.zip %><br />
 	<%= @bar.phone %><br />
+	<a href="http://maps.google.com/?q=loc:<%= @bar.address %>, <%= @bar.city %> <%= @bar.zip %>">Directions</a><br />
 	<% if !@bar.url.empty? %>
 		Website: <a href="<%= @bar.url %>"><%= @bar.name %></a>
 	<% end %>
